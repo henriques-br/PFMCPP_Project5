@@ -809,6 +809,47 @@ struct MixingStudio
     void processMixSessions(int numOfSessions);
 };
 
+MixingStudio::MixingStudio()
+{
+    std::cout << "MixingStudio being constructed!" << std::endl;
+}
+
+MixingStudio::~MixingStudio()
+{
+    std::cout << "MixingStudio being destructed!" << std::endl;
+}
+
+void MixingStudio::mixSong(std::string songName)
+{
+    computer.processAudioPlugins(25);
+
+    midiKeyboard.controlVirtualInstrument("Synth Pad");
+
+    studioMonitors.playAudioPlayback(songName);
+
+    std::cout << "Mixing song: " << songName << '\n';
+}
+
+void MixingStudio::processMixSessions(int numOfSessions)
+{
+    for (int session = 1; session <= numOfSessions; ++session)
+    {
+        ++numOfMixesCompleted;
+
+        std::cout << "Processing mix session #" << session << '\n';
+
+        for (int plugin = 1; plugin <= 3; ++plugin)
+        {
+            std::cout << "Loading plugin #" << plugin << '\n';
+        }
+
+        if (numOfMixesCompleted >= 5)
+        {
+            std::cout << "Daily mixing limit reached\n";
+            return;
+        }
+    }
+}
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
 
