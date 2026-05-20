@@ -41,7 +41,7 @@ write 3 UDTs below that EACH have:
         3 member functions
         constructors and loops.
         
- 2) Define your implementations of all functions OUTSIDE of the class. 
+ 2) Define your implementations of all functions OUTSIDE of the class.
  NO IN-CLASS IMPLEMENTATION ALLOWED
  3) add destructors to all of your UDTs
         make the destructors do something like print out the name of the class.
@@ -300,6 +300,377 @@ double FitnessTracker::monitorSleep(int hoursSlept)
 /*
  copied UDT 3:
  */
+struct Computer
+{
+    double cpuSpeedInGhz;
+    int amountRamInGb;
+    int storageSizeInGb = 8000;
+    std::string operatingSystemName;
+    int numOfUsbPorts = 8;
+
+    Computer();
+       
+    void runAudioSoftware(std::string softwareName);
+    void saveProjectFile(std::string projectName);
+    int processAudioPlugins(int numOfPlugins);
+    void allocateRamToPlugins(int ramIncreaseAmount);
+};
+
+Computer::Computer():
+    cpuSpeedInGhz(4),
+    amountRamInGb(128),
+    operatingSystemName("MacOS Tahoe")
+
+{
+    std::cout << "Computer being constructed!" << std::endl;
+}
+
+void Computer::runAudioSoftware(std::string softwareName)
+{
+    std::cout << "Running audio software " << softwareName << "\n";
+    std::cout << "Operating System Name " << operatingSystemName << "\n";
+}
+
+void Computer::saveProjectFile(std::string projectName)
+{
+    std::cout << "Saving project file " << projectName << "\n";
+}
+
+int Computer::processAudioPlugins(int numOfPlugins)
+{
+    std::cout << "Processing " << numOfPlugins << " audio plugins\n";
+
+    return numOfPlugins;
+}
+
+void Computer::allocateRamToPlugins(int ramIncreaseAmount)
+{
+    for(int i=0; i <= ramIncreaseAmount; i++)
+    {
+        std::cout << "Allocating RAM To Plugins " << i << "\n";
+        if(i >= 16)
+        {
+            std::cout << "Maximum amount reached " << i << "\n";
+            return;
+        }
+    }
+    
+    std::cout << "Maximum RAM capacity reached.\n";
+}
+
+struct AudioInterface
+{
+    int numOfInputChannels;
+    int numOfOutputChannels;
+    double sampleRateInKhz;
+    bool isPhantomPowerEnabled = true;
+    float headphoneOutputVolume = 45.5f;
+
+    AudioInterface();
+       
+    void convertAnalogToDigitalAudio();
+    void sendAudioToStudioMonitors(float outputVolume);
+    bool connectMicrophone(std::string microphoneName);
+    void increaseHeadphoneVolume(float volumeIncreaseAmount, float maximumSafeVolume);
+};
+
+AudioInterface::AudioInterface():
+    numOfInputChannels(26),
+    numOfOutputChannels(20),
+    sampleRateInKhz(48000)
+{
+    std::cout << "AudioInterface being constructed!" << std::endl;
+}
+
+
+void AudioInterface::convertAnalogToDigitalAudio()
+{
+    std::cout << "Converting analog audio to digital audio\n";
+}
+
+void AudioInterface::sendAudioToStudioMonitors(float outputVolume)
+{
+    headphoneOutputVolume = outputVolume;
+
+    std::cout << "Sending audio to studio monitors at volume " << outputVolume << "\n";
+}
+
+bool AudioInterface::connectMicrophone(std::string microphoneName)
+{
+    std::cout << "Connecting microphone " << microphoneName << "\n";
+    std::cout << "Number of Input Channels " << numOfInputChannels << "\n";
+    std::cout << "Number of Output Channels " << numOfOutputChannels << "\n";
+
+    return true;
+}
+
+void AudioInterface::increaseHeadphoneVolume(float volumeIncreaseAmount, float maximumSafeVolume)
+{
+    if (volumeIncreaseAmount <= 0.f)
+    {
+        std::cout << "Invalid volume increase amount\n";
+
+        return;
+    }
+
+    std::cout << "Headphone output volume " << headphoneOutputVolume << "\n";
+    while (headphoneOutputVolume < maximumSafeVolume)
+    {
+        if (headphoneOutputVolume + volumeIncreaseAmount > maximumSafeVolume)
+        {
+            std::cout << "Maximum safe volume would be exceeded.\n";
+
+            return;
+        }
+
+        headphoneOutputVolume += volumeIncreaseAmount;
+
+        std::cout << "Current headphone volume: " << headphoneOutputVolume << '\n';
+    }
+
+    std::cout << "Maximum headphone volume reached.\n";
+}
+
+struct StudioMonitors
+{
+    double speakerSizeInInches;
+    int powerOutputsInWatts;
+    float frequencyResponseRangeInHz;
+    float volumeLevel = 45.f;
+    double cabinetWidthInCm = 30;
+
+    StudioMonitors();
+      
+    void playAudioPlayback(std::string audioFileName);
+    void reproduceLowFrequencies();
+    void monitorRecordingSession(int sessionDurationInMinutes);
+    void increaseVolume(float volumeIncreaseAmount, float maximumSafeVolume);
+};
+
+StudioMonitors::StudioMonitors():
+    speakerSizeInInches(10),
+    powerOutputsInWatts(1200),
+    frequencyResponseRangeInHz(250)
+{
+    std::cout << "StudioMonitors being constructed!" << std::endl;
+}
+
+void StudioMonitors::playAudioPlayback(std::string audioFileName)
+{
+    std::cout << "Playing audio file " << audioFileName << "\n";
+}
+
+void StudioMonitors::reproduceLowFrequencies()
+{
+    std::cout << "Reproducing low frequencies\n";
+}
+
+void StudioMonitors::monitorRecordingSession(int sessionDurationInMinutes)
+{
+    std::cout << "Monitoring recording session for " << sessionDurationInMinutes << " minutes\n";
+    std::cout << "Power Outputs In Watts " << powerOutputsInWatts << "\n";
+    std::cout << "Frequency Response Range In Hz" << frequencyResponseRangeInHz << "\n";
+}
+
+void StudioMonitors::increaseVolume(float volumeIncreaseAmount, float maximumSafeVolume)
+{
+
+    if (volumeIncreaseAmount <= 0.f)
+    {
+        std::cout << "Invalid volume increase amount.\n";
+        return;
+    }
+
+    while (volumeLevel < maximumSafeVolume)
+    {
+        volumeLevel += volumeIncreaseAmount;
+        std::cout << "Current monitor volume: " << volumeLevel << '\n';
+    }
+
+    std::cout << "Maximum monitor volume reached\n";
+}
+
+struct MidiKeyboard
+{
+    int numOfKeys = 88;
+    int octaveRange = 7;
+    bool isVelocitySensitivityEnabled;
+    int numOfControlKnobs = 12;
+    std::string usbConnectionType;
+
+    MidiKeyboard();
+       
+    void sendMidiNotes(int midiNoteNumber);
+    void controlVirtualInstrument(std::string instrumentName);
+    void adjustPluginParameter(std::string parameterName, float parameterValue);
+    void playNotes(int numOfNotes);
+};
+
+MidiKeyboard::MidiKeyboard():
+    isVelocitySensitivityEnabled(true),
+    usbConnectionType("USB-C")
+{
+    std::cout << "MidiKeyboard being constructed!" << std::endl;
+}
+
+void MidiKeyboard::sendMidiNotes(int midiNoteNumber)
+{
+    std::cout << "Sending MIDI note " << midiNoteNumber << "\n";
+}
+
+void MidiKeyboard::controlVirtualInstrument(std::string instrumentName)
+{
+    std::cout << "Controlling virtual instrument " << instrumentName << "\n";
+    std::cout << "USB Connection Type " << usbConnectionType << "\n";
+    std::cout << "Velocity Sensitivity Enabled " << (isVelocitySensitivityEnabled == 1 ? "TRUE" : "FALSE") << "\n";
+}
+
+void MidiKeyboard::adjustPluginParameter(std::string parameterName, float parameterValue)
+{
+    std::cout << "Adjusting parameter " << parameterName << " to " << parameterValue << "\n";
+}
+
+void MidiKeyboard::playNotes(int numOfNotes)
+{
+    std::cout << "\nPlaying MIDI notes...\n";
+
+    for (int note = 1; note <= numOfNotes; ++note)
+    {
+        std::cout << "Playing note #" << note << '\n';
+
+        if (note >= 5)
+        {
+            std::cout << "Stopping playback early.\n";
+            return;
+        }
+    }
+}
+
+struct Microphone
+{
+    std::string microphoneType;
+    float frequencyResponseRangeInHz = 80;
+    double sensitivityLevel;
+    double cableLenghtInMeters;
+    int maximumSoundPressureLevelInDb = 12;
+
+    Microphone();
+       
+    void captureVocalRecording(std::string vocalistName);
+    void recordAcousticInstrument(std::string instrumentName);
+    bool reduceBackgroundNoise();
+    void increaseSensitivity(double maxSensitivity);
+};
+
+Microphone::Microphone():
+    microphoneType("Condenser"),
+    sensitivityLevel(7),
+    cableLenghtInMeters(5)
+{
+    std::cout << "Microphone being constructed!" << std::endl;
+}
+
+void Microphone::captureVocalRecording(std::string vocalistName)
+{
+    std::cout << "Capturing vocals for " << vocalistName << "\n";
+    std::cout << "Micropphone Type" << microphoneType << "\n";
+    std::cout << "Cable Lenght In Meters " << cableLenghtInMeters << "\n";
+}
+
+void Microphone::recordAcousticInstrument(std::string instrumentName)
+{
+    std::cout << "Recording acoustic instrument " << instrumentName << "\n";
+}
+
+bool Microphone::reduceBackgroundNoise()
+{
+    std::cout << "Reducing background noise\n";
+
+    return true;
+}
+
+void Microphone::increaseSensitivity(double maxSensitivity)
+{
+    while (sensitivityLevel < maxSensitivity)
+    {
+        sensitivityLevel += 0.5;
+        std::cout << "Current sensitivity level: " << sensitivityLevel << '\n';
+
+        if (sensitivityLevel >= maxSensitivity)
+        {
+            std::cout << "Maximum sensitivity reached!\n";
+            return;
+        }
+    }
+}
+struct MusicStudioComputerSetup
+{
+    MusicStudioComputerSetup();
+    
+    Computer computer;
+    AudioInterface audioInterface;
+    StudioMonitors studioMonitors;
+    MidiKeyboard midiKeyboard;
+    Microphone microphone;
+    int numOfProjectsCompleted = 0;
+    
+    void recordMusic(std::string projectName);
+    void editAudioTrack(std::string trackName);
+    void playVirtualInstrument(std::string instrumentName);
+    void runRecordingSessions(int numOfSessions);
+};
+
+MusicStudioComputerSetup::MusicStudioComputerSetup()
+{
+    std::cout << "MusicStudioComputerSetup being constructed!" << std::endl;
+}
+
+void MusicStudioComputerSetup::recordMusic(std::string projectName)
+{
+    computer.runAudioSoftware(projectName);
+
+    microphone.captureVocalRecording("Lead Vocalist");
+
+    audioInterface.convertAnalogToDigitalAudio();
+
+    std::cout << "Recording music project: " << projectName << "\n";
+}
+
+void MusicStudioComputerSetup::editAudioTrack(std::string trackName)
+{
+    computer.saveProjectFile(trackName);
+
+    studioMonitors.monitorRecordingSession(60);
+
+    std::cout << "Editing audio track: " << trackName << "\n";
+}
+
+void MusicStudioComputerSetup::playVirtualInstrument(std::string instrumentName)
+{
+    midiKeyboard.controlVirtualInstrument(instrumentName);
+
+    studioMonitors.playAudioPlayback(instrumentName);
+
+    std::cout << "Playing virtual instrument: " << instrumentName << "\n";
+}
+
+void MusicStudioComputerSetup::runRecordingSessions(int numOfSessions)
+{
+    std::cout << "\nRunning recording sessions...\n";
+
+    for (int session = 1; session <= numOfSessions; ++session)
+    {
+        ++numOfProjectsCompleted;
+
+        std::cout << "Completed recording session #" << session << " Projects completed: " << numOfProjectsCompleted << '\n';
+
+        if (numOfProjectsCompleted >= 5)
+        {
+            std::cout << "Studio reached daily project limit.\n";
+            return;
+        }
+    }
+}
 
 /*
  new UDT 4:
