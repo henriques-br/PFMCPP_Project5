@@ -185,6 +185,117 @@ void CoffeeShop::restockCoffeeBeans(float amountToAdd, float maxStorageAmount)
 /*
  copied UDT 2:
  */
+struct FitnessTracker
+{
+    float batteryPercentage;
+    int numOfStepsRecorded;
+    int heartRateValue = 145;
+    std::string deviceColor;
+    double dailyCalorieCount = 645;
+
+    FitnessTracker();
+       
+    struct WorkoutSession
+    {
+        std::string workoutType;
+        int workoutDurationInMinutes;
+        double caloriesBurned = 520.5;
+        int averageHeartRate = 138;
+        bool isGpsTrackingEnabled;
+
+        WorkoutSession();
+
+        void startWorkout();
+        void pauseWorkout();
+        bool endWorkout();
+    };
+    
+    void trackWorkout(WorkoutSession curWorkoutSession);
+    void displayNotification(std::string notificationMessage);
+    double monitorSleep(int hoursSlept);
+    void simulateStepGoal(int targetSteps, int stepsAddedPerLoop);
+    
+    WorkoutSession currentWorkoutSession;
+};
+
+FitnessTracker::WorkoutSession::WorkoutSession():
+    workoutType("Walking"),
+    workoutDurationInMinutes(55),
+    isGpsTrackingEnabled(false)
+{
+ std::cout << "WorkoutSession being constructed!" << std::endl;
+}
+
+void FitnessTracker::WorkoutSession::startWorkout()
+{
+    std::cout << "Starting " << workoutType << " workout\n";
+}
+
+void FitnessTracker::WorkoutSession::pauseWorkout()
+{
+    std::cout << "Pausing " << workoutType << " workout\n";
+}
+
+bool FitnessTracker::WorkoutSession::endWorkout()
+{
+    std::cout << "Ending " << workoutType << " workout\n";
+
+    return true;
+}
+
+FitnessTracker::FitnessTracker():
+    batteryPercentage(75.f),
+    numOfStepsRecorded(127),
+    deviceColor("Black")
+{
+    std::cout << "FitnessTracker being constructed!" << std::endl;
+}
+
+void FitnessTracker::simulateStepGoal(int targetSteps, int stepsAddedPerLoop)
+{
+    std::cout << "Simulating Step Goal\n";
+
+    while (numOfStepsRecorded < targetSteps)
+    {
+        if (numOfStepsRecorded + stepsAddedPerLoop > targetSteps)
+        {
+            std::cout << "Cannot add more steps.\n";
+            std::cout << "Step count would exceed target goal.\n";
+
+            return;
+        }
+
+        numOfStepsRecorded += stepsAddedPerLoop;
+
+        std::cout << "Current steps recorded: " << numOfStepsRecorded << '\n';
+    }
+
+    std::cout << "Daily step goal reached!\n";
+}
+
+void FitnessTracker::trackWorkout(WorkoutSession curWorkoutSession)
+{
+    std::cout << "Tracking workout type: " << curWorkoutSession.workoutType << "\n";
+
+    std::cout << "Workout duration: " << curWorkoutSession.workoutDurationInMinutes << " minutes\n";
+}
+
+void FitnessTracker::displayNotification(std::string notificationMessage)
+{
+    std::cout << "Notification: " << notificationMessage << "\n";
+    std::cout << "Number of steps recorded: " << numOfStepsRecorded << "\n";
+    std::cout << "Battery Level: " << batteryPercentage << "\n";
+}
+
+
+double FitnessTracker::monitorSleep(int hoursSlept)
+{
+    double sleepQualityScore = hoursSlept * 10.0;
+
+    std::cout << "User slept for " << hoursSlept << " hours\n";
+
+    return sleepQualityScore;
+}
 
 /*
  copied UDT 3:
