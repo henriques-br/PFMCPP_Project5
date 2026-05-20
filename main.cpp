@@ -755,11 +755,17 @@ RecordingSession::RecordingSession():
     sessionDurationInMinutes(120)
 {
     std::cout << "RecordingSession being constructed!" << std::endl;
+    
+    computer.runAudioSoftware("Pro Tools");
+    audioInterface.connectMicrophone("Shure SM7B");
+    microphone.reduceBackgroundNoise();
 }
 
 RecordingSession::~RecordingSession()
 {
     std::cout << "RecordingSession being destructed!" << std::endl;
+    computer.saveProjectFile(sessionName);
+    std::cout << "Final track count: " << numOfTracksRecorded << '\n';
 }
 
 void RecordingSession::startSession(std::string vocalistName)
