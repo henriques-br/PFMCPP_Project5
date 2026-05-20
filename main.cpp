@@ -751,6 +751,43 @@ struct RecordingSession
     void recordTracks(int numOfTracks);
 };
 
+RecordingSession::RecordingSession():
+    sessionDurationInMinutes(120)
+{
+    std::cout << "RecordingSession being constructed!" << std::endl;
+}
+
+RecordingSession::~RecordingSession()
+{
+    std::cout << "RecordingSession being destructed!" << std::endl;
+}
+
+void RecordingSession::startSession(std::string vocalistName)
+{
+    computer.runAudioSoftware("Logic Pro");
+
+    audioInterface.convertAnalogToDigitalAudio();
+
+    microphone.captureVocalRecording(vocalistName);
+
+    std::cout << "Starting recording session: " << sessionName << "\n";
+}
+
+void RecordingSession::recordTracks(int numOfTracks)
+{
+    for (int track = 1; track <= numOfTracks; ++track)
+    {
+        ++numOfTracksRecorded;
+
+        std::cout << "Recording track #" << track << '\n';
+
+        if (numOfTracksRecorded >= 10)
+        {
+            std::cout << "Maximum number of tracks recorded\n";
+            return;
+        }
+    }
+}
 /*
  new UDT 5:
  with 2 member functions
