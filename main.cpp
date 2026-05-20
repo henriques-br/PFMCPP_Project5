@@ -83,6 +83,7 @@ struct CoffeeShop
     std::string shopName = "Prenda Cafe";
 
     CoffeeShop();
+    ~CoffeeShop();
 
     struct CoffeeMachine
     {
@@ -93,6 +94,7 @@ struct CoffeeShop
         bool isSteamWandEnabled = true;
 
         CoffeeMachine();
+        ~CoffeeMachine();
 
         void makeEspresso(int numOfShots);
         void steamMilk(float milkAmountInMl);
@@ -115,6 +117,11 @@ CoffeeShop::CoffeeMachine::CoffeeMachine() :
     isSteamWandEnabled(true)
 {
     std::cout << "CoffeeMachine constructed!\n";
+}
+
+CoffeeShop::CoffeeMachine::~CoffeeMachine()
+{
+    std::cout << "CoffeeMachine destructed!\n";
 }
 
 void CoffeeShop::CoffeeMachine::makeEspresso(int numOfShots)
@@ -141,6 +148,11 @@ bool CoffeeShop::CoffeeMachine::cleanMachine()
 CoffeeShop::CoffeeShop(): numOfCoffeeMachines(6), numOfEmployees(9)
 {
     std::cout << "CoffeeShop being constructed!" << std::endl;
+}
+
+CoffeeShop::~CoffeeShop()
+{
+    std::cout << "CoffeeShop being destructed!\n";
 }
 
 void CoffeeShop::brewCoffee(CoffeeMachine activeCoffeeMachine, int numOfCups)
