@@ -779,11 +779,11 @@ void RecordingSession::startSession(std::string vocalistName)
 
 void RecordingSession::recordTracks(int numOfTracks)
 {
-    for (int track = 1; track <= numOfTracks; ++track)
+    for (int trackNum = 1; track <= numOfTracks; ++trackNum)
     {
         ++numOfTracksRecorded;
 
-        std::cout << "Recording track #" << track << '\n';
+        std::cout << "Recording track #" << trackNum << '\n';
 
         if (numOfTracksRecorded >= 10)
         {
@@ -840,11 +840,11 @@ void MixingStudio::mixSong(std::string songName)
 
 void MixingStudio::processMixSessions(int numOfSessions)
 {
-    for (int session = 1; session <= numOfSessions; ++session)
+    for (int sessionNum = 1; session <= numOfSessions; ++sessionNum)
     {
         ++numOfMixesCompleted;
 
-        std::cout << "Processing mix session #" << session << '\n';
+        std::cout << "Processing mix session #" << sessionNum << '\n';
 
         for (int plugin = 1; plugin <= 3; ++plugin)
         {
