@@ -206,6 +206,7 @@ struct FitnessTracker
     double dailyCalorieCount = 645;
 
     FitnessTracker();
+    ~FitnessTracker();
        
     struct WorkoutSession
     {
@@ -216,7 +217,8 @@ struct FitnessTracker
         bool isGpsTrackingEnabled;
 
         WorkoutSession();
-
+        ~WorkoutSession();
+        
         void startWorkout();
         void pauseWorkout();
         bool endWorkout();
@@ -236,6 +238,11 @@ FitnessTracker::WorkoutSession::WorkoutSession():
     isGpsTrackingEnabled(false)
 {
  std::cout << "WorkoutSession being constructed!" << std::endl;
+}
+
+FitnessTracker::WorkoutSession::~WorkoutSession()
+{
+ std::cout << "WorkoutSession being destructed!" << std::endl;
 }
 
 void FitnessTracker::WorkoutSession::startWorkout()
@@ -261,6 +268,11 @@ FitnessTracker::FitnessTracker():
     deviceColor("Black")
 {
     std::cout << "FitnessTracker being constructed!" << std::endl;
+}
+
+FitnessTracker::~FitnessTracker()
+{
+    std::cout << "FitnessTracker being destructed!" << std::endl;
 }
 
 void FitnessTracker::simulateStepGoal(int targetSteps, int stepsAddedPerLoop)
