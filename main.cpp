@@ -734,6 +734,22 @@ void MusicStudioComputerSetup::runRecordingSessions(int numOfSessions)
  new UDT 4:
  with 2 member functions
  */
+struct RecordingSession
+{
+    Computer computer;
+    AudioInterface audioInterface;
+    Microphone microphone;
+
+    int sessionDurationInMinutes;
+    int numOfTracksRecorded = 0;
+    std::string sessionName = "Rock Session";
+
+    RecordingSession();
+    ~RecordingSession();
+
+    void startSession(std::string vocalistName);
+    void recordTracks(int numOfTracks);
+};
 
 /*
  new UDT 5:
