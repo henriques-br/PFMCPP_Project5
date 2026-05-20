@@ -333,6 +333,7 @@ struct Computer
     int numOfUsbPorts = 8;
 
     Computer();
+    ~Computer();
        
     void runAudioSoftware(std::string softwareName);
     void saveProjectFile(std::string projectName);
@@ -344,9 +345,13 @@ Computer::Computer():
     cpuSpeedInGhz(4),
     amountRamInGb(128),
     operatingSystemName("MacOS Tahoe")
-
 {
     std::cout << "Computer being constructed!" << std::endl;
+}
+
+Computer::~Computer()
+{
+    std::cout << "Computer being destructed!" << std::endl;
 }
 
 void Computer::runAudioSoftware(std::string softwareName)
@@ -391,6 +396,7 @@ struct AudioInterface
     float headphoneOutputVolume = 45.5f;
 
     AudioInterface();
+    ~AudioInterface();
        
     void convertAnalogToDigitalAudio();
     void sendAudioToStudioMonitors(float outputVolume);
@@ -406,6 +412,10 @@ AudioInterface::AudioInterface():
     std::cout << "AudioInterface being constructed!" << std::endl;
 }
 
+AudioInterface::~AudioInterface()
+{
+    std::cout << "AudioInterface being destructed!" << std::endl;
+}
 
 void AudioInterface::convertAnalogToDigitalAudio()
 {
@@ -464,7 +474,8 @@ struct StudioMonitors
     double cabinetWidthInCm = 30;
 
     StudioMonitors();
-      
+    ~StudioMonitors();
+    
     void playAudioPlayback(std::string audioFileName);
     void reproduceLowFrequencies();
     void monitorRecordingSession(int sessionDurationInMinutes);
@@ -477,6 +488,11 @@ StudioMonitors::StudioMonitors():
     frequencyResponseRangeInHz(250)
 {
     std::cout << "StudioMonitors being constructed!" << std::endl;
+}
+
+StudioMonitors::~StudioMonitors()
+{
+    std::cout << "StudioMonitors being destructed!" << std::endl;
 }
 
 void StudioMonitors::playAudioPlayback(std::string audioFileName)
@@ -523,7 +539,8 @@ struct MidiKeyboard
     std::string usbConnectionType;
 
     MidiKeyboard();
-       
+    ~MidiKeyboard();
+    
     void sendMidiNotes(int midiNoteNumber);
     void controlVirtualInstrument(std::string instrumentName);
     void adjustPluginParameter(std::string parameterName, float parameterValue);
@@ -535,6 +552,11 @@ MidiKeyboard::MidiKeyboard():
     usbConnectionType("USB-C")
 {
     std::cout << "MidiKeyboard being constructed!" << std::endl;
+}
+
+MidiKeyboard::~MidiKeyboard()
+{
+    std::cout << "MidiKeyboard being destructed!" << std::endl;
 }
 
 void MidiKeyboard::sendMidiNotes(int midiNoteNumber)
@@ -579,7 +601,8 @@ struct Microphone
     int maximumSoundPressureLevelInDb = 12;
 
     Microphone();
-       
+    ~Microphone();
+    
     void captureVocalRecording(std::string vocalistName);
     void recordAcousticInstrument(std::string instrumentName);
     bool reduceBackgroundNoise();
@@ -592,6 +615,11 @@ Microphone::Microphone():
     cableLenghtInMeters(5)
 {
     std::cout << "Microphone being constructed!" << std::endl;
+}
+
+Microphone::~Microphone()
+{
+    std::cout << "Microphone being destructed!" << std::endl;
 }
 
 void Microphone::captureVocalRecording(std::string vocalistName)
@@ -629,14 +657,15 @@ void Microphone::increaseSensitivity(double maxSensitivity)
 }
 struct MusicStudioComputerSetup
 {
-    MusicStudioComputerSetup();
-    
     Computer computer;
     AudioInterface audioInterface;
     StudioMonitors studioMonitors;
     MidiKeyboard midiKeyboard;
     Microphone microphone;
     int numOfProjectsCompleted = 0;
+    
+    MusicStudioComputerSetup();
+    ~MusicStudioComputerSetup();
     
     void recordMusic(std::string projectName);
     void editAudioTrack(std::string trackName);
@@ -647,6 +676,11 @@ struct MusicStudioComputerSetup
 MusicStudioComputerSetup::MusicStudioComputerSetup()
 {
     std::cout << "MusicStudioComputerSetup being constructed!" << std::endl;
+}
+
+MusicStudioComputerSetup::~MusicStudioComputerSetup()
+{
+    std::cout << "MusicStudioComputerSetup being destructed!" << std::endl;
 }
 
 void MusicStudioComputerSetup::recordMusic(std::string projectName)
