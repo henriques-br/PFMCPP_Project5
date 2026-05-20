@@ -818,11 +818,15 @@ struct MixingStudio
 MixingStudio::MixingStudio()
 {
     std::cout << "MixingStudio being constructed!" << std::endl;
+    computer.allocateRamToPlugins(8);
+    midiKeyboard.playNotes(3);
+    studioMonitors.increaseVolume(2.f, 50.f);
 }
 
 MixingStudio::~MixingStudio()
 {
     std::cout << "MixingStudio being destructed!" << std::endl;
+    studioMonitors.playAudioPlayback("Final Mix Bounce.wav");
 }
 
 void MixingStudio::mixSong(std::string songName)
