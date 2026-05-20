@@ -242,7 +242,7 @@ FitnessTracker::WorkoutSession::WorkoutSession():
 
 FitnessTracker::WorkoutSession::~WorkoutSession()
 {
- std::cout << "WorkoutSession being destructed!" << std::endl;
+    std::cout << "WorkoutSession being destructed!" << std::endl;
 }
 
 void FitnessTracker::WorkoutSession::startWorkout()
@@ -374,7 +374,7 @@ int Computer::processAudioPlugins(int numOfPlugins)
 
 void Computer::allocateRamToPlugins(int ramIncreaseAmount)
 {
-    for(int i=0; i <= ramIncreaseAmount; i++)
+    for(int i = 0; i <= ramIncreaseAmount; i++)
     {
         std::cout << "Allocating RAM To Plugins " << i << "\n";
         if(i >= 16)
@@ -514,7 +514,6 @@ void StudioMonitors::monitorRecordingSession(int sessionDurationInMinutes)
 
 void StudioMonitors::increaseVolume(float volumeIncreaseAmount, float maximumSafeVolume)
 {
-
     if (volumeIncreaseAmount <= 0.f)
     {
         std::cout << "Invalid volume increase amount.\n";
@@ -526,7 +525,6 @@ void StudioMonitors::increaseVolume(float volumeIncreaseAmount, float maximumSaf
         volumeLevel += volumeIncreaseAmount;
         std::cout << "Current monitor volume: " << volumeLevel << '\n';
     }
-
     std::cout << "Maximum monitor volume reached\n";
 }
 
