@@ -874,8 +874,44 @@ void MixingStudio::processMixSessions(int numOfSessions)
  Wait for my code review.
  */
 
-#include <iostream>
 int main()
 {
+     std::cout << "=========== 1st UDT ===========" << std::endl;
+     CoffeeShop coffeeShop;
+     coffeeShop.serveCustomers(12);
+     coffeeShop.cleanTables(5);
+     coffeeShop.currentCoffeeMachine.makeEspresso(3);
+     coffeeShop.currentCoffeeMachine.steamMilk(250.0f);
+     coffeeShop.currentCoffeeMachine.cleanMachine();
+     coffeeShop.brewCoffee(coffeeShop.currentCoffeeMachine, 10);
+     coffeeShop.restockCoffeeBeans(8.f, 55.f);
+
+     std::cout << "=========== 2nd UDT with nested ===========" << std::endl;
+     FitnessTracker fitnessTracker;
+     fitnessTracker.currentWorkoutSession.startWorkout();
+     fitnessTracker.trackWorkout(fitnessTracker.currentWorkoutSession);
+     fitnessTracker.displayNotification("Goal reached");
+     fitnessTracker.monitorSleep(8);
+     fitnessTracker.currentWorkoutSession.pauseWorkout();
+     fitnessTracker.currentWorkoutSession.endWorkout();
+     fitnessTracker.simulateStepGoal(3000, 500);
+
+     std::cout << "=========== 3rd UDT with nested ===========" << std::endl;
+     MusicStudioComputerSetup setup;
+     setup.recordMusic("New Album");
+     setup.editAudioTrack("Lead Vocals");
+     setup.playVirtualInstrument("Synth Pad");
+     setup.runRecordingSessions(4);
+
+     std::cout << "=========== 4th UDT with nested ===========" << std::endl;
+     RecordingSession recordingSession;
+     recordingSession.startSession("Another Day");
+     recordingSession.recordTracks(6);
+
+     std::cout << "=========== 5th UDT with nested ===========" << std::endl;
+     MixingStudio mixingStudio;
+     mixingStudio.mixSong("Thunder");
+     mixingStudio.processMixSessions(4);
+
     std::cout << "good to go!" << std::endl;
 }
