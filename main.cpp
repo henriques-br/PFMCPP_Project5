@@ -991,8 +991,16 @@ int main()
     
     std::cout << "=========== 5th UDT with nested ===========" << std::endl;
     MixingStudio mixingStudio;
+    /*
     mixingStudio.mixSong("Thunder");
     mixingStudio.processMixSessions(4);
+    */
+    std::cout << "Mixing Engineer: " << mixingStudio.mixingEngineerName << '\n';
+    std::cout << "Mixes Completed: " << mixingStudio.numOfMixesCompleted << '\n';
+    std::cout << "CPU Usage Percentage: " << mixingStudio.sessionCpuUsagePercentage << '\n';
+    std::cout << "Computer RAM: " << mixingStudio.computer.amountRamInGb << '\n';
+    std::cout << "Monitor Volume: " << mixingStudio.studioMonitors.volumeLevel << '\n';
+    mixingStudio.printMixingStudioInfo();
     
     std::cout << "good to go!" << std::endl;
 }
