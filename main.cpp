@@ -242,6 +242,7 @@ struct FitnessTracker
     void displayNotification(std::string notificationMessage);
     double monitorSleep(int hoursSlept);
     void simulateStepGoal(int targetSteps, int stepsAddedPerLoop);
+    void printFitnessTrackerInfo();
     
     WorkoutSession currentWorkoutSession;
 };
@@ -333,6 +334,13 @@ double FitnessTracker::monitorSleep(int hoursSlept)
     std::cout << "User slept for " << hoursSlept << " hours\n";
 
     return sleepQualityScore;
+}
+
+void FitnessTracker::printFitnessTrackerInfo()
+{
+    std::cout << "Battery Level: " << this->batteryPercentage << '\n';
+    std::cout << "Steps Recorded: " << this->numOfStepsRecorded << '\n';
+    std::cout << "Heart Rate: " << this->heartRateValue << '\n';
 }
 
 /*
