@@ -941,10 +941,17 @@ int main()
 
     std::cout << "=========== 3rd UDT with nested ===========" << std::endl;
     MusicStudioComputerSetup setup;
+    /*
     setup.recordMusic("New Album");
     setup.editAudioTrack("Lead Vocals");
     setup.playVirtualInstrument("Synth Pad");
     setup.runRecordingSessions(4);
+    */
+    std::cout << "CPU Speed: " << setup.computer.cpuSpeedInGhz << '\n';
+    std::cout << "RAM Amount: " << setup.computer.amountRamInGb << '\n';
+    std::cout << "Operating System: " << setup.computer.operatingSystemName << '\n';
+
+    setup.computer.printComputerInfo();
     
     std::cout << "=========== 4th UDT with nested ===========" << std::endl;
     RecordingSession recordingSession;
