@@ -110,6 +110,7 @@ struct CoffeeShop
     void serveCustomers(int numOfCustomers);
     void cleanTables(int numOfTables);
     void restockCoffeeBeans(float amountToAdd, float maxStorageAmount);
+    void printCoffeeShopInfo();
     
     CoffeeMachine currentCoffeeMachine;
 };
@@ -199,6 +200,14 @@ void CoffeeShop::restockCoffeeBeans(float amountToAdd, float maxStorageAmount)
         }
     }
 }
+
+void CoffeeShop::printCoffeeShopInfo()
+{
+    std::cout << "Shop Name: " << this->shopName << '\n';
+    std::cout << "Employees: " << this->numOfEmployees << '\n';
+    std::cout << "Coffee Machines: " << this->numOfCoffeeMachines << "\n";
+}
+
 /*
  copied UDT 2:
  */
@@ -784,7 +793,7 @@ void RecordingSession::startSession(std::string vocalistName)
 
 void RecordingSession::recordTracks(int numOfTracks)
 {
-    for (int trackNum = 1; track <= numOfTracks; ++trackNum)
+    for (int trackNum = 1; trackNum <= numOfTracks; ++trackNum)
     {
         ++numOfTracksRecorded;
 
@@ -845,7 +854,7 @@ void MixingStudio::mixSong(std::string songName)
 
 void MixingStudio::processMixSessions(int numOfSessions)
 {
-    for (int sessionNum = 1; session <= numOfSessions; ++sessionNum)
+    for (int sessionNum = 1; sessionNum <= numOfSessions; ++sessionNum)
     {
         ++numOfMixesCompleted;
 
