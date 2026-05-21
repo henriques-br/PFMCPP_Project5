@@ -777,6 +777,7 @@ struct RecordingSession
 
     void startSession(std::string vocalistName);
     void recordTracks(int numOfTracks);
+    void printRecordingSessionInfo();
 };
 
 RecordingSession::RecordingSession():
@@ -822,6 +823,16 @@ void RecordingSession::recordTracks(int numOfTracks)
         }
     }
 }
+
+void RecordingSession::printRecordingSessionInfo()
+{
+    std::cout << "Session Name: " << this->sessionName << '\n';
+    std::cout << "Session Duration: " << this->sessionDurationInMinutes << '\n';
+    std::cout << "Tracks Recorded: " << this->numOfTracksRecorded << '\n';
+    std::cout << "Computer Operating System: " << this->computer.operatingSystemName << '\n';
+    std::cout << "Microphone Type: " << this->microphone.microphoneType << '\n';
+}
+
 /*
  new UDT 5:
  with 2 member functions
