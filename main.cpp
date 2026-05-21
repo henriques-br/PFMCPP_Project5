@@ -966,8 +966,17 @@ int main()
     
     std::cout << "=========== 4th UDT with nested ===========" << std::endl;
     RecordingSession recordingSession;
+    */
     recordingSession.startSession("Another Day");
     recordingSession.recordTracks(6);
+    */
+    std::cout << "Session Name: " << recordingSession.sessionName << '\n';
+    std::cout << "Session Duration: " << recordingSession.sessionDurationInMinutes << '\n';
+    std::cout << "Tracks Recorded: " << recordingSession.numOfTracksRecorded << '\n';
+    std::cout << "Computer Operating System: " << recordingSession.computer.operatingSystemName << '\n';
+    std::cout << "Microphone Type: " << recordingSession.microphone.microphoneType << '\n';
+
+    recordingSession.printRecordingSessionInfo();
     
     std::cout << "=========== 5th UDT with nested ===========" << std::endl;
     MixingStudio mixingStudio;
