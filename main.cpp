@@ -361,6 +361,7 @@ struct Computer
     void saveProjectFile(std::string projectName);
     int processAudioPlugins(int numOfPlugins);
     void allocateRamToPlugins(int ramIncreaseAmount);
+    void printComputerInfo();
 };
 
 Computer::Computer():
@@ -407,6 +408,13 @@ void Computer::allocateRamToPlugins(int ramIncreaseAmount)
     }
     
     std::cout << "Maximum RAM capacity reached.\n";
+}
+
+void Computer::printComputerInfo()
+{
+    std::cout << "CPU Speed: " << this->cpuSpeedInGhz << '\n';
+    std::cout << "RAM Amount: " << this->amountRamInGb << '\n';
+    std::cout << "Operating System: " << this->operatingSystemName << '\n';
 }
 
 struct AudioInterface
