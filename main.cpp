@@ -852,6 +852,7 @@ struct MixingStudio
 
     void mixSong(std::string songName);
     void processMixSessions(int numOfSessions);
+    void printMixingStudioInfo();
 };
 
 MixingStudio::MixingStudio()
@@ -899,6 +900,16 @@ void MixingStudio::processMixSessions(int numOfSessions)
         }
     }
 }
+
+void MixingStudio::printMixingStudioInfo()
+{
+    std::cout << "Mixing Engineer: " << this->mixingEngineerName << '\n';
+    std::cout << "Mixes Completed: " << this->numOfMixesCompleted << '\n';
+    std::cout << "CPU Usage Percentage: " << this->sessionCpuUsagePercentage << '\n';
+    std::cout << "Computer RAM: " << this->computer.amountRamInGb << '\n';
+    std::cout << "Monitor Volume: " << this->studioMonitors.volumeLevel << '\n';
+}
+
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
 
@@ -966,7 +977,7 @@ int main()
     
     std::cout << "=========== 4th UDT with nested ===========" << std::endl;
     RecordingSession recordingSession;
-    */
+    /*
     recordingSession.startSession("Another Day");
     recordingSession.recordTracks(6);
     */
