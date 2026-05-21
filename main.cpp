@@ -916,6 +916,7 @@ int main()
     
     std::cout << "=========== 2nd UDT with nested ===========" << std::endl;
     FitnessTracker fitnessTracker;
+    /*
     fitnessTracker.currentWorkoutSession.startWorkout();
     fitnessTracker.trackWorkout(fitnessTracker.currentWorkoutSession);
     fitnessTracker.displayNotification("Goal reached");
@@ -923,7 +924,13 @@ int main()
     fitnessTracker.currentWorkoutSession.pauseWorkout();
     fitnessTracker.currentWorkoutSession.endWorkout();
     fitnessTracker.simulateStepGoal(3000, 500);
-    
+    */
+    std::cout << "Battery Level: " << fitnessTracker.batteryPercentage << '\n';
+    std::cout << "Steps Recorded: " << fitnessTracker.numOfStepsRecorded << '\n';
+    std::cout << "Heart Rate: " << fitnessTracker.heartRateValue << '\n';
+
+    fitnessTracker.printFitnessTrackerInfo();
+
     std::cout << "=========== 3rd UDT with nested ===========" << std::endl;
     MusicStudioComputerSetup setup;
     setup.recordMusic("New Album");
