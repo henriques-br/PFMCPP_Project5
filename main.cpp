@@ -110,6 +110,7 @@ struct CoffeeShop
     void serveCustomers(int numOfCustomers);
     void cleanTables(int numOfTables);
     void restockCoffeeBeans(float amountToAdd, float maxStorageAmount);
+    void printCoffeeShopInfo();
     
     CoffeeMachine currentCoffeeMachine;
 };
@@ -199,6 +200,14 @@ void CoffeeShop::restockCoffeeBeans(float amountToAdd, float maxStorageAmount)
         }
     }
 }
+
+void CoffeeShop::printCoffeeShopInfo()
+{
+    std::cout << "Shop Name: " << this->shopName << '\n';
+    std::cout << "Employees: " << this->numOfEmployees << '\n';
+    std::cout << "Coffee Machines: " << this->numOfCoffeeMachines << "\n";
+}
+
 /*
  copied UDT 2:
  */
@@ -233,6 +242,7 @@ struct FitnessTracker
     void displayNotification(std::string notificationMessage);
     double monitorSleep(int hoursSlept);
     void simulateStepGoal(int targetSteps, int stepsAddedPerLoop);
+    void printFitnessTrackerInfo();
     
     WorkoutSession currentWorkoutSession;
 };
@@ -326,6 +336,13 @@ double FitnessTracker::monitorSleep(int hoursSlept)
     return sleepQualityScore;
 }
 
+void FitnessTracker::printFitnessTrackerInfo()
+{
+    std::cout << "Battery Level: " << this->batteryPercentage << '\n';
+    std::cout << "Steps Recorded: " << this->numOfStepsRecorded << '\n';
+    std::cout << "Heart Rate: " << this->heartRateValue << '\n';
+}
+
 /*
  copied UDT 3:
  */
@@ -344,6 +361,7 @@ struct Computer
     void saveProjectFile(std::string projectName);
     int processAudioPlugins(int numOfPlugins);
     void allocateRamToPlugins(int ramIncreaseAmount);
+    void printComputerInfo();
 };
 
 Computer::Computer():
@@ -390,6 +408,13 @@ void Computer::allocateRamToPlugins(int ramIncreaseAmount)
     }
     
     std::cout << "Maximum RAM capacity reached.\n";
+}
+
+void Computer::printComputerInfo()
+{
+    std::cout << "CPU Speed: " << this->cpuSpeedInGhz << '\n';
+    std::cout << "RAM Amount: " << this->amountRamInGb << '\n';
+    std::cout << "Operating System: " << this->operatingSystemName << '\n';
 }
 
 struct AudioInterface
@@ -752,6 +777,7 @@ struct RecordingSession
 
     void startSession(std::string vocalistName);
     void recordTracks(int numOfTracks);
+    void printRecordingSessionInfo();
 };
 
 RecordingSession::RecordingSession():
@@ -784,7 +810,7 @@ void RecordingSession::startSession(std::string vocalistName)
 
 void RecordingSession::recordTracks(int numOfTracks)
 {
-    for (int trackNum = 1; track <= numOfTracks; ++trackNum)
+    for (int trackNum = 1; trackNum <= numOfTracks; ++trackNum)
     {
         ++numOfTracksRecorded;
 
@@ -797,6 +823,16 @@ void RecordingSession::recordTracks(int numOfTracks)
         }
     }
 }
+
+void RecordingSession::printRecordingSessionInfo()
+{
+    std::cout << "Session Name: " << this->sessionName << '\n';
+    std::cout << "Session Duration: " << this->sessionDurationInMinutes << '\n';
+    std::cout << "Tracks Recorded: " << this->numOfTracksRecorded << '\n';
+    std::cout << "Computer Operating System: " << this->computer.operatingSystemName << '\n';
+    std::cout << "Microphone Type: " << this->microphone.microphoneType << '\n';
+}
+
 /*
  new UDT 5:
  with 2 member functions
@@ -816,6 +852,7 @@ struct MixingStudio
 
     void mixSong(std::string songName);
     void processMixSessions(int numOfSessions);
+    void printMixingStudioInfo();
 };
 
 MixingStudio::MixingStudio()
@@ -845,7 +882,7 @@ void MixingStudio::mixSong(std::string songName)
 
 void MixingStudio::processMixSessions(int numOfSessions)
 {
-    for (int sessionNum = 1; session <= numOfSessions; ++sessionNum)
+    for (int sessionNum = 1; sessionNum <= numOfSessions; ++sessionNum)
     {
         ++numOfMixesCompleted;
 
@@ -863,6 +900,16 @@ void MixingStudio::processMixSessions(int numOfSessions)
         }
     }
 }
+
+void MixingStudio::printMixingStudioInfo()
+{
+    std::cout << "Mixing Engineer: " << this->mixingEngineerName << '\n';
+    std::cout << "Mixes Completed: " << this->numOfMixesCompleted << '\n';
+    std::cout << "CPU Usage Percentage: " << this->sessionCpuUsagePercentage << '\n';
+    std::cout << "Computer RAM: " << this->computer.amountRamInGb << '\n';
+    std::cout << "Monitor Volume: " << this->studioMonitors.volumeLevel << '\n';
+}
+
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
 
@@ -879,42 +926,81 @@ void MixingStudio::processMixSessions(int numOfSessions)
 
 int main()
 {
-     std::cout << "=========== 1st UDT ===========" << std::endl;
-     CoffeeShop coffeeShop;
-     coffeeShop.serveCustomers(12);
-     coffeeShop.cleanTables(5);
-     coffeeShop.currentCoffeeMachine.makeEspresso(3);
-     coffeeShop.currentCoffeeMachine.steamMilk(250.0f);
-     coffeeShop.currentCoffeeMachine.cleanMachine();
-     coffeeShop.brewCoffee(coffeeShop.currentCoffeeMachine, 10);
-     coffeeShop.restockCoffeeBeans(8.f, 55.f);
+    std::cout << "=========== 1st UDT ===========" << std::endl;
+    CoffeeShop coffeeShop;
+    /*
+    coffeeShop.serveCustomers(12);
+    coffeeShop.cleanTables(5);
+    coffeeShop.currentCoffeeMachine.makeEspresso(3);
+    coffeeShop.currentCoffeeMachine.steamMilk(250.0f);
+    coffeeShop.currentCoffeeMachine.cleanMachine();
+    coffeeShop.brewCoffee(coffeeShop.currentCoffeeMachine, 10);
+    coffeeShop.restockCoffeeBeans(8.f, 55.f);
+    */
+    
+    std::cout << "Shop Name: " << coffeeShop.shopName << '\n';
+    std::cout << "Employees: " << coffeeShop.numOfEmployees << '\n';
+    std::cout << "Coffee Machines: " << coffeeShop.numOfCoffeeMachines << "\n";
+    
+    coffeeShop.printCoffeeShopInfo();
+    
+    std::cout << "=========== 2nd UDT with nested ===========" << std::endl;
+    FitnessTracker fitnessTracker;
+    /*
+    fitnessTracker.currentWorkoutSession.startWorkout();
+    fitnessTracker.trackWorkout(fitnessTracker.currentWorkoutSession);
+    fitnessTracker.displayNotification("Goal reached");
+    fitnessTracker.monitorSleep(8);
+    fitnessTracker.currentWorkoutSession.pauseWorkout();
+    fitnessTracker.currentWorkoutSession.endWorkout();
+    fitnessTracker.simulateStepGoal(3000, 500);
+    */
+    std::cout << "Battery Level: " << fitnessTracker.batteryPercentage << '\n';
+    std::cout << "Steps Recorded: " << fitnessTracker.numOfStepsRecorded << '\n';
+    std::cout << "Heart Rate: " << fitnessTracker.heartRateValue << '\n';
 
-     std::cout << "=========== 2nd UDT with nested ===========" << std::endl;
-     FitnessTracker fitnessTracker;
-     fitnessTracker.currentWorkoutSession.startWorkout();
-     fitnessTracker.trackWorkout(fitnessTracker.currentWorkoutSession);
-     fitnessTracker.displayNotification("Goal reached");
-     fitnessTracker.monitorSleep(8);
-     fitnessTracker.currentWorkoutSession.pauseWorkout();
-     fitnessTracker.currentWorkoutSession.endWorkout();
-     fitnessTracker.simulateStepGoal(3000, 500);
+    fitnessTracker.printFitnessTrackerInfo();
 
-     std::cout << "=========== 3rd UDT with nested ===========" << std::endl;
-     MusicStudioComputerSetup setup;
-     setup.recordMusic("New Album");
-     setup.editAudioTrack("Lead Vocals");
-     setup.playVirtualInstrument("Synth Pad");
-     setup.runRecordingSessions(4);
+    std::cout << "=========== 3rd UDT with nested ===========" << std::endl;
+    MusicStudioComputerSetup setup;
+    /*
+    setup.recordMusic("New Album");
+    setup.editAudioTrack("Lead Vocals");
+    setup.playVirtualInstrument("Synth Pad");
+    setup.runRecordingSessions(4);
+    */
+    std::cout << "CPU Speed: " << setup.computer.cpuSpeedInGhz << '\n';
+    std::cout << "RAM Amount: " << setup.computer.amountRamInGb << '\n';
+    std::cout << "Operating System: " << setup.computer.operatingSystemName << '\n';
 
-     std::cout << "=========== 4th UDT with nested ===========" << std::endl;
-     RecordingSession recordingSession;
-     recordingSession.startSession("Another Day");
-     recordingSession.recordTracks(6);
+    setup.computer.printComputerInfo();
+    
+    std::cout << "=========== 4th UDT with nested ===========" << std::endl;
+    RecordingSession recordingSession;
+    /*
+    recordingSession.startSession("Another Day");
+    recordingSession.recordTracks(6);
+    */
+    std::cout << "Session Name: " << recordingSession.sessionName << '\n';
+    std::cout << "Session Duration: " << recordingSession.sessionDurationInMinutes << '\n';
+    std::cout << "Tracks Recorded: " << recordingSession.numOfTracksRecorded << '\n';
+    std::cout << "Computer Operating System: " << recordingSession.computer.operatingSystemName << '\n';
+    std::cout << "Microphone Type: " << recordingSession.microphone.microphoneType << '\n';
 
-     std::cout << "=========== 5th UDT with nested ===========" << std::endl;
-     MixingStudio mixingStudio;
-     mixingStudio.mixSong("Thunder");
-     mixingStudio.processMixSessions(4);
-
+    recordingSession.printRecordingSessionInfo();
+    
+    std::cout << "=========== 5th UDT with nested ===========" << std::endl;
+    MixingStudio mixingStudio;
+    /*
+    mixingStudio.mixSong("Thunder");
+    mixingStudio.processMixSessions(4);
+    */
+    std::cout << "Mixing Engineer: " << mixingStudio.mixingEngineerName << '\n';
+    std::cout << "Mixes Completed: " << mixingStudio.numOfMixesCompleted << '\n';
+    std::cout << "CPU Usage Percentage: " << mixingStudio.sessionCpuUsagePercentage << '\n';
+    std::cout << "Computer RAM: " << mixingStudio.computer.amountRamInGb << '\n';
+    std::cout << "Monitor Volume: " << mixingStudio.studioMonitors.volumeLevel << '\n';
+    mixingStudio.printMixingStudioInfo();
+    
     std::cout << "good to go!" << std::endl;
 }
