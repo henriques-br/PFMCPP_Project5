@@ -255,11 +255,11 @@ struct FitnessTracker
         bool endWorkout();
     };
     
-    void trackWorkout(const WorkoutSession& curWorkoutSession);
-    void displayNotification(std::string notificationMessage);
+    void trackWorkout(const WorkoutSession& curWorkoutSession) const;
+    void displayNotification(std::string notificationMessage) const;
     double monitorSleep(int hoursSlept);
     void simulateStepGoal(int targetSteps, int stepsAddedPerLoop);
-    void printFitnessTrackerInfo();
+    void printFitnessTrackerInfo() const;
     
     WorkoutSession currentWorkoutSession;
     JUCE_LEAK_DETECTOR(FitnessTracker)
@@ -341,14 +341,14 @@ void FitnessTracker::simulateStepGoal(int targetSteps, int stepsAddedPerLoop)
     std::cout << "Daily step goal reached!\n";
 }
 
-void FitnessTracker::trackWorkout(WorkoutSession curWorkoutSession)
+void FitnessTracker::trackWorkout(const WorkoutSession& curWorkoutSession) const
 {
     std::cout << "Tracking workout type: " << curWorkoutSession.workoutType << "\n";
 
     std::cout << "Workout duration: " << curWorkoutSession.workoutDurationInMinutes << " minutes\n";
 }
 
-void FitnessTracker::displayNotification(std::string notificationMessage)
+void FitnessTracker::displayNotification(std::string notificationMessage) const
 {
     std::cout << "Notification: " << notificationMessage << "\n";
     std::cout << "Number of steps recorded: " << numOfStepsRecorded << "\n";
@@ -365,7 +365,7 @@ double FitnessTracker::monitorSleep(int hoursSlept)
     return sleepQualityScore;
 }
 
-void FitnessTracker::printFitnessTrackerInfo()
+void FitnessTracker::printFitnessTrackerInfo() const
 {
     std::cout << "Battery Level: " << this->batteryPercentage << '\n';
     std::cout << "Steps Recorded: " << this->numOfStepsRecorded << '\n';
