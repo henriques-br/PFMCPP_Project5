@@ -107,15 +107,15 @@ struct CoffeeShop
         ~CoffeeMachine();
 
         void makeEspresso(int numOfShots);
-        void steamMilk(float milkAmountInMl);
-        bool cleanMachine();
+        void steamMilk(float milkAmountInMl) const;
+        bool cleanMachine() const;
     };
     
-    void brewCoffee(CoffeeMachine activeCoffeeMachine, int numOfCups);
-    void serveCustomers(int numOfCustomers);
-    void cleanTables(int numOfTables);
+    void brewCoffee(CoffeeMachine& activeCoffeeMachine, int numOfCups);
+    void serveCustomers(int numOfCustomers) const;
+    void cleanTables(int numOfTables) const;
     void restockCoffeeBeans(float amountToAdd, float maxStorageAmount);
-    void printCoffeeShopInfo();
+    void printCoffeeShopInfo() const;
     
     CoffeeMachine currentCoffeeMachine;
     JUCE_LEAK_DETECTOR(CoffeeShop)
@@ -156,12 +156,12 @@ void CoffeeShop::CoffeeMachine::makeEspresso(int numOfShots)
     std::cout << "Making " << numOfShots << " " << (numOfShots == 1 ? "cup" : "cups") << " espresso shots\n";
 }
 
-void CoffeeShop::CoffeeMachine::steamMilk(float milkAmountInMl)
+void CoffeeShop::CoffeeMachine::steamMilk(float milkAmountInMl) const
 {
     std::cout << "Steaming " << milkAmountInMl << " ml of milk\n";
 }
 
-bool CoffeeShop::CoffeeMachine::cleanMachine()
+bool CoffeeShop::CoffeeMachine::cleanMachine() const
 {
     std::cout << "Cleaning coffee machine\n";
 
@@ -178,7 +178,7 @@ CoffeeShop::~CoffeeShop()
     std::cout << "CoffeeShop being destructed!\n";
 }
 
-void CoffeeShop::brewCoffee(CoffeeMachine activeCoffeeMachine, int numOfCups)
+void CoffeeShop::brewCoffee(CoffeeMachine& activeCoffeeMachine, int numOfCups)
 {
     activeCoffeeMachine.makeEspresso(numOfCups);
 
@@ -188,12 +188,12 @@ void CoffeeShop::brewCoffee(CoffeeMachine activeCoffeeMachine, int numOfCups)
     std::cout << "Coffee Machines: " << numOfCoffeeMachines << "\n\n";
 }
 
-void CoffeeShop::serveCustomers(int numOfCustomers)
+void CoffeeShop::serveCustomers(int numOfCustomers) const
 {
     std::cout << "Serving " << numOfCustomers << " customers\n";
 }
 
-void CoffeeShop::cleanTables(int numOfTables)
+void CoffeeShop::cleanTables(int numOfTables) const
 {
     std::cout << "Cleaning " << numOfTables << " tables\n";
 }
@@ -218,7 +218,7 @@ void CoffeeShop::restockCoffeeBeans(float amountToAdd, float maxStorageAmount)
     }
 }
 
-void CoffeeShop::printCoffeeShopInfo()
+void CoffeeShop::printCoffeeShopInfo() const
 {
     std::cout << "Shop Name: " << this->shopName << '\n';
     std::cout << "Employees: " << this->numOfEmployees << '\n';
@@ -250,12 +250,12 @@ struct FitnessTracker
         WorkoutSession();
         ~WorkoutSession();
         
-        void startWorkout();
-        void pauseWorkout();
+        void startWorkout() const;
+        void pauseWorkout() const;
         bool endWorkout();
     };
     
-    void trackWorkout(WorkoutSession curWorkoutSession);
+    void trackWorkout(const WorkoutSession& curWorkoutSession);
     void displayNotification(std::string notificationMessage);
     double monitorSleep(int hoursSlept);
     void simulateStepGoal(int targetSteps, int stepsAddedPerLoop);
@@ -289,12 +289,12 @@ FitnessTracker::WorkoutSession::~WorkoutSession()
     std::cout << "WorkoutSession being destructed!" << std::endl;
 }
 
-void FitnessTracker::WorkoutSession::startWorkout()
+void FitnessTracker::WorkoutSession::startWorkout() const
 {
     std::cout << "Starting " << workoutType << " workout\n";
 }
 
-void FitnessTracker::WorkoutSession::pauseWorkout()
+void FitnessTracker::WorkoutSession::pauseWorkout() const
 {
     std::cout << "Pausing " << workoutType << " workout\n";
 }
