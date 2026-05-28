@@ -265,6 +265,17 @@ struct FitnessTracker
     JUCE_LEAK_DETECTOR(FitnessTracker)
 };
 
+struct FitnessTrackerWrapper
+{
+    FitnessTrackerWrapper( FitnessTracker* ptr ) : ptrToFitnessTracker( ptr ) { }
+    ~FitnessTrackerWrapper()
+    {
+        delete ptrToFitnessTracker;         // safe to delete a nullptr
+    }
+
+    FitnessTracker* ptrToFitnessTracker = nullptr;
+};
+
 FitnessTracker::WorkoutSession::WorkoutSession():
     workoutType("Walking"),
     workoutDurationInMinutes(55),
