@@ -1080,7 +1080,9 @@ int main()
     coffeeShop.ptrToCoffeeShop->printCoffeeShopInfo();
     
     std::cout << "=========== 2nd UDT with nested ===========" << std::endl;
-    FitnessTracker fitnessTracker;
+    //FitnessTracker fitnessTracker;
+    FitnessTrackerWrapper fitnessTracker( new FitnessTracker() );
+
     /*
     fitnessTracker.currentWorkoutSession.startWorkout();
     fitnessTracker.trackWorkout(fitnessTracker.currentWorkoutSession);
@@ -1090,11 +1092,11 @@ int main()
     fitnessTracker.currentWorkoutSession.endWorkout();
     fitnessTracker.simulateStepGoal(3000, 500);
     */
-    std::cout << "Battery Level: " << fitnessTracker.batteryPercentage << '\n';
-    std::cout << "Steps Recorded: " << fitnessTracker.numOfStepsRecorded << '\n';
-    std::cout << "Heart Rate: " << fitnessTracker.heartRateValue << '\n';
+    std::cout << "Battery Level: " << fitnessTracker.ptrToFitnessTracker->batteryPercentage << '\n';
+    std::cout << "Steps Recorded: " << fitnessTracker.ptrToFitnessTracker->numOfStepsRecorded << '\n';
+    std::cout << "Heart Rate: " << fitnessTracker.ptrToFitnessTracker->heartRateValue << '\n';
 
-    fitnessTracker.printFitnessTrackerInfo();
+    fitnessTracker.ptrToFitnessTracker->printFitnessTrackerInfo();
 
     std::cout << "=========== 3rd UDT with nested ===========" << std::endl;
     MusicStudioComputerSetup setup;
