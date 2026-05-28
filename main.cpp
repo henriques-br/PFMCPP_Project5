@@ -977,6 +977,17 @@ struct MixingStudio
     JUCE_LEAK_DETECTOR(MixingStudio)
 };
 
+struct MixingStudioWrapper
+{
+    MixingStudioWrapper( MixingStudio* ptr ) : ptrToMixingStudio( ptr ) { }
+    ~MixingStudioWrapper()
+    {
+        delete ptrToMixingStudio;         // safe to delete a nullptr
+    }
+
+    MixingStudio* ptrToMixingStudio = nullptr;
+};
+
 MixingStudio::MixingStudio()
 {
     std::cout << "MixingStudio being constructed!" << std::endl;
