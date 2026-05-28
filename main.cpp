@@ -797,7 +797,7 @@ struct MusicStudioComputerSetup
     JUCE_LEAK_DETECTOR(MusicStudioComputerSetup)
 };
 
-struct MusicStudioComputerSetup
+struct MusicStudioComputerSetupWrapper
 {
     MusicStudioComputerSetupWrapper( MusicStudioComputerSetup* ptr ) : ptrToMusicStudioComputerSetup( ptr ) { }
     ~MusicStudioComputerSetupWrapper()
@@ -887,6 +887,17 @@ struct RecordingSession
     void printRecordingSessionInfo();
     
     JUCE_LEAK_DETECTOR(RecordingSession)
+};
+
+struct RecordingSessionWrapper
+{
+    RecordingSessionWrapper( RecordingSession* ptr ) : ptrToRecordingSession( ptr ) { }
+    ~RecordingSessionWrapper()
+    {
+        delete ptrToRecordingSession;         // safe to delete a nullptr
+    }
+
+    RecordingSession* ptrToRecordingSession = nullptr;
 };
 
 RecordingSession::RecordingSession():
