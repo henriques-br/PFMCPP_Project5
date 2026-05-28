@@ -386,11 +386,11 @@ struct Computer
     Computer();
     ~Computer();
        
-    void runAudioSoftware(std::string softwareName);
-    void saveProjectFile(std::string projectName);
-    int processAudioPlugins(int numOfPlugins);
+    void runAudioSoftware(std::string softwareName) const;
+    void saveProjectFile(std::string projectName) const;
+    int processAudioPlugins(int numOfPlugins) const;
     void allocateRamToPlugins(int ramIncreaseAmount);
-    void printComputerInfo();
+    void printComputerInfo() const;
     
     JUCE_LEAK_DETECTOR(Computer)
 };
@@ -419,18 +419,18 @@ Computer::~Computer()
     std::cout << "Computer being destructed!" << std::endl;
 }
 
-void Computer::runAudioSoftware(std::string softwareName)
+void Computer::runAudioSoftware(std::string softwareName) const
 {
     std::cout << "Running audio software " << softwareName << "\n";
     std::cout << "Operating System Name " << operatingSystemName << "\n";
 }
 
-void Computer::saveProjectFile(std::string projectName)
+void Computer::saveProjectFile(std::string projectName) const
 {
     std::cout << "Saving project file " << projectName << "\n";
 }
 
-int Computer::processAudioPlugins(int numOfPlugins)
+int Computer::processAudioPlugins(int numOfPlugins) const
 {
     std::cout << "Processing " << numOfPlugins << " audio plugins\n";
 
@@ -452,7 +452,7 @@ void Computer::allocateRamToPlugins(int ramIncreaseAmount)
     std::cout << "Maximum RAM capacity reached.\n";
 }
 
-void Computer::printComputerInfo()
+void Computer::printComputerInfo() const
 {
     std::cout << "CPU Speed: " << this->cpuSpeedInGhz << '\n';
     std::cout << "RAM Amount: " << this->amountRamInGb << '\n';
@@ -470,9 +470,9 @@ struct AudioInterface
     AudioInterface();
     ~AudioInterface();
        
-    void convertAnalogToDigitalAudio();
+    void convertAnalogToDigitalAudio() const;
     void sendAudioToStudioMonitors(float outputVolume);
-    bool connectMicrophone(std::string microphoneName);
+    bool connectMicrophone(std::string microphoneName) const;
     void increaseHeadphoneVolume(float volumeIncreaseAmount, float maximumSafeVolume);
     
     JUCE_LEAK_DETECTOR(AudioInterface)
@@ -502,7 +502,7 @@ AudioInterface::~AudioInterface()
     std::cout << "AudioInterface being destructed!" << std::endl;
 }
 
-void AudioInterface::convertAnalogToDigitalAudio()
+void AudioInterface::convertAnalogToDigitalAudio() const
 {
     std::cout << "Converting analog audio to digital audio\n";
 }
@@ -514,7 +514,7 @@ void AudioInterface::sendAudioToStudioMonitors(float outputVolume)
     std::cout << "Sending audio to studio monitors at volume " << outputVolume << "\n";
 }
 
-bool AudioInterface::connectMicrophone(std::string microphoneName)
+bool AudioInterface::connectMicrophone(std::string microphoneName) const
 {
     std::cout << "Connecting microphone " << microphoneName << "\n";
     std::cout << "Number of Input Channels " << numOfInputChannels << "\n";
@@ -561,9 +561,9 @@ struct StudioMonitors
     StudioMonitors();
     ~StudioMonitors();
     
-    void playAudioPlayback(std::string audioFileName);
-    void reproduceLowFrequencies();
-    void monitorRecordingSession(int sessionDurationInMinutes);
+    void playAudioPlayback(std::string audioFileName) const;
+    void reproduceLowFrequencies() const;
+    void monitorRecordingSession(int sessionDurationInMinutes) const;
     void increaseVolume(float volumeIncreaseAmount, float maximumSafeVolume);
     
     JUCE_LEAK_DETECTOR(StudioMonitors)
@@ -593,17 +593,17 @@ StudioMonitors::~StudioMonitors()
     std::cout << "StudioMonitors being destructed!" << std::endl;
 }
 
-void StudioMonitors::playAudioPlayback(std::string audioFileName)
+void StudioMonitors::playAudioPlayback(std::string audioFileName) const
 {
     std::cout << "Playing audio file " << audioFileName << "\n";
 }
 
-void StudioMonitors::reproduceLowFrequencies()
+void StudioMonitors::reproduceLowFrequencies() const
 {
     std::cout << "Reproducing low frequencies\n";
 }
 
-void StudioMonitors::monitorRecordingSession(int sessionDurationInMinutes)
+void StudioMonitors::monitorRecordingSession(int sessionDurationInMinutes) const
 {
     std::cout << "Monitoring recording session for " << sessionDurationInMinutes << " minutes\n";
     std::cout << "Power Outputs In Watts " << powerOutputsInWatts << "\n";
@@ -637,10 +637,10 @@ struct MidiKeyboard
     MidiKeyboard();
     ~MidiKeyboard();
     
-    void sendMidiNotes(int midiNoteNumber);
-    void controlVirtualInstrument(std::string instrumentName);
-    void adjustPluginParameter(std::string parameterName, float parameterValue);
-    void playNotes(int numOfNotes);
+    void sendMidiNotes(int midiNoteNumber) const;
+    void controlVirtualInstrument(std::string instrumentName) const;
+    void adjustPluginParameter(std::string parameterName, float parameterValue) const;
+    void playNotes(int numOfNotes) const;
     
     JUCE_LEAK_DETECTOR(MidiKeyboard)
 };
@@ -668,24 +668,24 @@ MidiKeyboard::~MidiKeyboard()
     std::cout << "MidiKeyboard being destructed!" << std::endl;
 }
 
-void MidiKeyboard::sendMidiNotes(int midiNoteNumber)
+void MidiKeyboard::sendMidiNotes(int midiNoteNumber) const
 {
     std::cout << "Sending MIDI note " << midiNoteNumber << "\n";
 }
 
-void MidiKeyboard::controlVirtualInstrument(std::string instrumentName)
+void MidiKeyboard::controlVirtualInstrument(std::string instrumentName) const
 {
     std::cout << "Controlling virtual instrument " << instrumentName << "\n";
     std::cout << "USB Connection Type " << usbConnectionType << "\n";
     std::cout << "Velocity Sensitivity Enabled " << (isVelocitySensitivityEnabled == 1 ? "TRUE" : "FALSE") << "\n";
 }
 
-void MidiKeyboard::adjustPluginParameter(std::string parameterName, float parameterValue)
+void MidiKeyboard::adjustPluginParameter(std::string parameterName, float parameterValue) const
 {
     std::cout << "Adjusting parameter " << parameterName << " to " << parameterValue << "\n";
 }
 
-void MidiKeyboard::playNotes(int numOfNotes)
+void MidiKeyboard::playNotes(int numOfNotes) const
 {
     std::cout << "\nPlaying MIDI notes...\n";
 
@@ -712,9 +712,9 @@ struct Microphone
     Microphone();
     ~Microphone();
     
-    void captureVocalRecording(std::string vocalistName);
-    void recordAcousticInstrument(std::string instrumentName);
-    bool reduceBackgroundNoise();
+    void captureVocalRecording(std::string vocalistName) const;
+    void recordAcousticInstrument(std::string instrumentName) const;
+    bool reduceBackgroundNoise() const;
     void increaseSensitivity(double maxSensitivity);
     
     JUCE_LEAK_DETECTOR(Microphone)
@@ -744,19 +744,19 @@ Microphone::~Microphone()
     std::cout << "Microphone being destructed!" << std::endl;
 }
 
-void Microphone::captureVocalRecording(std::string vocalistName)
+void Microphone::captureVocalRecording(std::string vocalistName) const
 {
     std::cout << "Capturing vocals for " << vocalistName << "\n";
     std::cout << "Micropphone Type" << microphoneType << "\n";
     std::cout << "Cable Lenght In Meters " << cableLenghtInMeters << "\n";
 }
 
-void Microphone::recordAcousticInstrument(std::string instrumentName)
+void Microphone::recordAcousticInstrument(std::string instrumentName) const
 {
     std::cout << "Recording acoustic instrument " << instrumentName << "\n";
 }
 
-bool Microphone::reduceBackgroundNoise()
+bool Microphone::reduceBackgroundNoise() const
 {
     std::cout << "Reducing background noise\n";
 
@@ -789,9 +789,9 @@ struct MusicStudioComputerSetup
     MusicStudioComputerSetup();
     ~MusicStudioComputerSetup();
     
-    void recordMusic(std::string projectName);
-    void editAudioTrack(std::string trackName);
-    void playVirtualInstrument(std::string instrumentName);
+    void recordMusic(std::string projectName) const;
+    void editAudioTrack(std::string trackName) const;
+    void playVirtualInstrument(std::string instrumentName) const;
     void runRecordingSessions(int numOfSessions);
     
     JUCE_LEAK_DETECTOR(MusicStudioComputerSetup)
@@ -818,7 +818,7 @@ MusicStudioComputerSetup::~MusicStudioComputerSetup()
     std::cout << "MusicStudioComputerSetup being destructed!" << std::endl;
 }
 
-void MusicStudioComputerSetup::recordMusic(std::string projectName)
+void MusicStudioComputerSetup::recordMusic(std::string projectName) const
 {
     computer.runAudioSoftware(projectName);
 
@@ -829,7 +829,7 @@ void MusicStudioComputerSetup::recordMusic(std::string projectName)
     std::cout << "Recording music project: " << projectName << "\n";
 }
 
-void MusicStudioComputerSetup::editAudioTrack(std::string trackName)
+void MusicStudioComputerSetup::editAudioTrack(std::string trackName) const
 {
     computer.saveProjectFile(trackName);
 
@@ -838,7 +838,7 @@ void MusicStudioComputerSetup::editAudioTrack(std::string trackName)
     std::cout << "Editing audio track: " << trackName << "\n";
 }
 
-void MusicStudioComputerSetup::playVirtualInstrument(std::string instrumentName)
+void MusicStudioComputerSetup::playVirtualInstrument(std::string instrumentName) const
 {
     midiKeyboard.controlVirtualInstrument(instrumentName);
 
