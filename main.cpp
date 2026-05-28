@@ -882,9 +882,9 @@ struct RecordingSession
     RecordingSession();
     ~RecordingSession();
 
-    void startSession(std::string vocalistName);
+    void startSession(std::string vocalistName) const;
     void recordTracks(int numOfTracks);
-    void printRecordingSessionInfo();
+    void printRecordingSessionInfo() const;
     
     JUCE_LEAK_DETECTOR(RecordingSession)
 };
@@ -917,7 +917,7 @@ RecordingSession::~RecordingSession()
     std::cout << "Final track count: " << numOfTracksRecorded << '\n';
 }
 
-void RecordingSession::startSession(std::string vocalistName)
+void RecordingSession::startSession(std::string vocalistName) const
 {
     computer.runAudioSoftware("Logic Pro");
 
@@ -944,7 +944,7 @@ void RecordingSession::recordTracks(int numOfTracks)
     }
 }
 
-void RecordingSession::printRecordingSessionInfo()
+void RecordingSession::printRecordingSessionInfo() const
 {
     std::cout << "Session Name: " << this->sessionName << '\n';
     std::cout << "Session Duration: " << this->sessionDurationInMinutes << '\n';
