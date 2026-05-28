@@ -1060,7 +1060,9 @@ void MixingStudio::printMixingStudioInfo()
 int main()
 {
     std::cout << "=========== 1st UDT ===========" << std::endl;
-    CoffeeShop coffeeShop;
+    //CoffeeShop coffeeShop;
+    CoffeeShopWrapper coffeeShop( new CoffeeShop() );
+    
     /*
     coffeeShop.serveCustomers(12);
     coffeeShop.cleanTables(5);
@@ -1071,11 +1073,11 @@ int main()
     coffeeShop.restockCoffeeBeans(8.f, 55.f);
     */
     
-    std::cout << "Shop Name: " << coffeeShop.shopName << '\n';
-    std::cout << "Employees: " << coffeeShop.numOfEmployees << '\n';
-    std::cout << "Coffee Machines: " << coffeeShop.numOfCoffeeMachines << "\n";
+    std::cout << "Shop Name: " << coffeeShop.ptrToCoffeeShop->shopName << '\n';
+    std::cout << "Employees: " << coffeeShop.ptrToCoffeeShop->numOfEmployees << '\n';
+    std::cout << "Coffee Machines: " << coffeeShop.ptrToCoffeeShop->numOfCoffeeMachines << "\n";
     
-    coffeeShop.printCoffeeShopInfo();
+    coffeeShop.ptrToCoffeeShop->printCoffeeShopInfo();
     
     std::cout << "=========== 2nd UDT with nested ===========" << std::endl;
     FitnessTracker fitnessTracker;
