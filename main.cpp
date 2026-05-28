@@ -874,6 +874,8 @@ struct MixingStudio
     void mixSong(std::string songName);
     void processMixSessions(int numOfSessions);
     void printMixingStudioInfo();
+    
+    JUCE_LEAK_DETECTOR(MixingStudio)
 };
 
 MixingStudio::MixingStudio()
