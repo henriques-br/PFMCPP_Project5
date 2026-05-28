@@ -121,6 +121,17 @@ struct CoffeeShop
     JUCE_LEAK_DETECTOR(CoffeeShop)
 };
 
+struct CoffeeShopWrapper
+{
+    CoffeeShopWrapper( CoffeeShop* ptr ) : ptrToCoffeeShop( ptr ) { }
+    ~CoffeeShopWrapper()
+    {
+        delete ptrToCoffeeShop;         // safe to delete a nullptr
+    }
+
+    CoffeeShop* ptrToCoffeeShop = nullptr;
+};
+
 CoffeeShop::CoffeeMachine::CoffeeMachine() :
     machineModelName("Perfect Brew"),
     waterTankCapacityInLiters(3.2f),
