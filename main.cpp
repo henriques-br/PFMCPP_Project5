@@ -970,9 +970,9 @@ struct MixingStudio
     MixingStudio();
     ~MixingStudio();
 
-    void mixSong(std::string songName);
+    void mixSong(std::string songName) const;
     void processMixSessions(int numOfSessions);
-    void printMixingStudioInfo();
+    void printMixingStudioInfo() const;
     
     JUCE_LEAK_DETECTOR(MixingStudio)
 };
@@ -1002,7 +1002,7 @@ MixingStudio::~MixingStudio()
     studioMonitors.playAudioPlayback("Final Mix Bounce.wav");
 }
 
-void MixingStudio::mixSong(std::string songName)
+void MixingStudio::mixSong(std::string songName) const
 {
     computer.processAudioPlugins(25);
 
@@ -1034,7 +1034,7 @@ void MixingStudio::processMixSessions(int numOfSessions)
     }
 }
 
-void MixingStudio::printMixingStudioInfo()
+void MixingStudio::printMixingStudioInfo() const
 {
     std::cout << "Mixing Engineer: " << this->mixingEngineerName << '\n';
     std::cout << "Mixes Completed: " << this->numOfMixesCompleted << '\n';
