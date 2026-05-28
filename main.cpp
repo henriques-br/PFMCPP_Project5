@@ -118,6 +118,7 @@ struct CoffeeShop
     void printCoffeeShopInfo();
     
     CoffeeMachine currentCoffeeMachine;
+    JUCE_LEAK_DETECTOR(CoffeeShop)
 };
 
 CoffeeShop::CoffeeMachine::CoffeeMachine() :
