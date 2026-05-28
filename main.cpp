@@ -797,6 +797,8 @@ struct RecordingSession
     void startSession(std::string vocalistName);
     void recordTracks(int numOfTracks);
     void printRecordingSessionInfo();
+    
+    JUCE_LEAK_DETECTOR(RecordingSession)
 };
 
 RecordingSession::RecordingSession():
