@@ -369,6 +369,8 @@ struct Computer
     int processAudioPlugins(int numOfPlugins);
     void allocateRamToPlugins(int ramIncreaseAmount);
     void printComputerInfo();
+    
+    JUCE_LEAK_DETECTOR(Computer)
 };
 
 Computer::Computer():
@@ -439,6 +441,8 @@ struct AudioInterface
     void sendAudioToStudioMonitors(float outputVolume);
     bool connectMicrophone(std::string microphoneName);
     void increaseHeadphoneVolume(float volumeIncreaseAmount, float maximumSafeVolume);
+    
+    JUCE_LEAK_DETECTOR(AudioInterface)
 };
 
 AudioInterface::AudioInterface():
@@ -517,6 +521,8 @@ struct StudioMonitors
     void reproduceLowFrequencies();
     void monitorRecordingSession(int sessionDurationInMinutes);
     void increaseVolume(float volumeIncreaseAmount, float maximumSafeVolume);
+    
+    JUCE_LEAK_DETECTOR(StudioMonitors)
 };
 
 StudioMonitors::StudioMonitors():
@@ -580,6 +586,8 @@ struct MidiKeyboard
     void controlVirtualInstrument(std::string instrumentName);
     void adjustPluginParameter(std::string parameterName, float parameterValue);
     void playNotes(int numOfNotes);
+    
+    JUCE_LEAK_DETECTOR(MidiKeyboard)
 };
 
 MidiKeyboard::MidiKeyboard():
@@ -642,6 +650,8 @@ struct Microphone
     void recordAcousticInstrument(std::string instrumentName);
     bool reduceBackgroundNoise();
     void increaseSensitivity(double maxSensitivity);
+    
+    JUCE_LEAK_DETECTOR(Microphone)
 };
 
 Microphone::Microphone():
@@ -706,6 +716,8 @@ struct MusicStudioComputerSetup
     void editAudioTrack(std::string trackName);
     void playVirtualInstrument(std::string instrumentName);
     void runRecordingSessions(int numOfSessions);
+    
+    JUCE_LEAK_DETECTOR(MusicStudioComputerSetup)
 };
 
 MusicStudioComputerSetup::MusicStudioComputerSetup()
