@@ -1115,19 +1115,21 @@ int main()
     setup.ptrToMusicStudioComputerSetup->computer.printComputerInfo();
   
     std::cout << "=========== 4th UDT with nested ===========" << std::endl;
-    RecordingSession recordingSession;
+    //RecordingSession recordingSession;
+    RecordingSessionWrapper recordingSession( new RecordingSession() );
+  
     /*
     recordingSession.startSession("Another Day");
     recordingSession.recordTracks(6);
     */
-    std::cout << "Session Name: " << recordingSession.sessionName << '\n';
-    std::cout << "Session Duration: " << recordingSession.sessionDurationInMinutes << '\n';
-    std::cout << "Tracks Recorded: " << recordingSession.numOfTracksRecorded << '\n';
-    std::cout << "Computer Operating System: " << recordingSession.computer.operatingSystemName << '\n';
-    std::cout << "Microphone Type: " << recordingSession.microphone.microphoneType << '\n';
+    std::cout << "Session Name: " << recordingSession.ptrToRecordingSession->sessionName << '\n';
+    std::cout << "Session Duration: " << recordingSession.ptrToRecordingSession->sessionDurationInMinutes << '\n';
+    std::cout << "Tracks Recorded: " << recordingSession.ptrToRecordingSession->numOfTracksRecorded << '\n';
+    std::cout << "Computer Operating System: " << recordingSession.ptrToRecordingSession->computer.operatingSystemName << '\n';
+    std::cout << "Microphone Type: " << recordingSession.ptrToRecordingSession->microphone.microphoneType << '\n';
 
-    recordingSession.printRecordingSessionInfo();
-    
+    recordingSession.ptrToRecordingSession->printRecordingSessionInfo();
+  
     std::cout << "=========== 5th UDT with nested ===========" << std::endl;
     MixingStudio mixingStudio;
     /*
