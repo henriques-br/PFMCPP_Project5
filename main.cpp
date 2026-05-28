@@ -395,6 +395,17 @@ struct Computer
     JUCE_LEAK_DETECTOR(Computer)
 };
 
+struct ComputerWrapper
+{
+    ComputerWrapper( Computer* ptr ) : ptrToComputer( ptr ) { }
+    ~ComputerWrapper()
+    {
+        delete ptrToComputer;         // safe to delete a nullptr
+    }
+
+    Computer* ptrToComputer = nullptr;
+};
+
 Computer::Computer():
     cpuSpeedInGhz(4),
     amountRamInGb(128),
@@ -465,6 +476,17 @@ struct AudioInterface
     void increaseHeadphoneVolume(float volumeIncreaseAmount, float maximumSafeVolume);
     
     JUCE_LEAK_DETECTOR(AudioInterface)
+};
+
+struct AudioInterfaceWrapper
+{
+    AudioInterfaceWrapper( AudioInterface* ptr ) : ptrToAudioInterface( ptr ) { }
+    ~AudioInterfaceWrapper()
+    {
+        delete ptrToAudioInterface;         // safe to delete a nullptr
+    }
+
+    AudioInterface* ptrToAudioInterface = nullptr;
 };
 
 AudioInterface::AudioInterface():
@@ -547,6 +569,17 @@ struct StudioMonitors
     JUCE_LEAK_DETECTOR(StudioMonitors)
 };
 
+struct StudioMonitorsWrapper
+{
+    StudioMonitorsWrapper( StudioMonitors* ptr ) : ptrToStudioMonitors( ptr ) { }
+    ~StudioMonitorsWrapper()
+    {
+        delete ptrToStudioMonitors;         // safe to delete a nullptr
+    }
+
+    StudioMonitors* ptrToStudioMonitors = nullptr;
+};
+
 StudioMonitors::StudioMonitors():
     speakerSizeInInches(10),
     powerOutputsInWatts(1200),
@@ -610,6 +643,17 @@ struct MidiKeyboard
     void playNotes(int numOfNotes);
     
     JUCE_LEAK_DETECTOR(MidiKeyboard)
+};
+
+struct MidiKeyboardWrapper
+{
+    MidiKeyboardWrapper( MidiKeyboard* ptr ) : ptrToMidiKeyboard( ptr ) { }
+    ~MidiKeyboardWrapper()
+    {
+        delete ptrToMidiKeyboard;         // safe to delete a nullptr
+    }
+
+    MidiKeyboard* ptrToMidiKeyboard = nullptr;
 };
 
 MidiKeyboard::MidiKeyboard():
@@ -676,6 +720,17 @@ struct Microphone
     JUCE_LEAK_DETECTOR(Microphone)
 };
 
+struct MicrophoneWrapper
+{
+    MicrophoneWrapper( Microphone* ptr ) : ptrToMicrophone( ptr ) { }
+    ~MicrophoneWrapper()
+    {
+        delete ptrToMicrophone;         // safe to delete a nullptr
+    }
+
+    Microphone* ptrToMicrophone = nullptr;
+};
+
 Microphone::Microphone():
     microphoneType("Condenser"),
     sensitivityLevel(7),
@@ -740,6 +795,17 @@ struct MusicStudioComputerSetup
     void runRecordingSessions(int numOfSessions);
     
     JUCE_LEAK_DETECTOR(MusicStudioComputerSetup)
+};
+
+struct MusicStudioComputerSetup
+{
+    MusicStudioComputerSetupWrapper( MusicStudioComputerSetup* ptr ) : ptrToMusicStudioComputerSetup( ptr ) { }
+    ~MusicStudioComputerSetupWrapper()
+    {
+        delete ptrToMusicStudioComputerSetup;         // safe to delete a nullptr
+    }
+
+    MusicStudioComputerSetup* ptrToMusicStudioComputerSetup = nullptr;
 };
 
 MusicStudioComputerSetup::MusicStudioComputerSetup()
