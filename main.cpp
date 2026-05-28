@@ -1131,7 +1131,9 @@ int main()
     recordingSession.ptrToRecordingSession->printRecordingSessionInfo();
   
     std::cout << "=========== 5th UDT with nested ===========" << std::endl;
-    MixingStudio mixingStudio;
+    //MixingStudio mixingStudio;
+    MixingStudioWrapper mixingStudio( new MixingStudio() );
+    
     /*
     mixingStudio.mixSong("Thunder");
     mixingStudio.processMixSessions(4);
