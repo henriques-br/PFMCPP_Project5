@@ -1133,17 +1133,18 @@ int main()
     std::cout << "=========== 5th UDT with nested ===========" << std::endl;
     //MixingStudio mixingStudio;
     MixingStudioWrapper mixingStudio( new MixingStudio() );
-    
+
     /*
     mixingStudio.mixSong("Thunder");
     mixingStudio.processMixSessions(4);
     */
-    std::cout << "Mixing Engineer: " << mixingStudio.mixingEngineerName << '\n';
-    std::cout << "Mixes Completed: " << mixingStudio.numOfMixesCompleted << '\n';
-    std::cout << "CPU Usage Percentage: " << mixingStudio.sessionCpuUsagePercentage << '\n';
-    std::cout << "Computer RAM: " << mixingStudio.computer.amountRamInGb << '\n';
-    std::cout << "Monitor Volume: " << mixingStudio.studioMonitors.volumeLevel << '\n';
-    mixingStudio.printMixingStudioInfo();
+    std::cout << "Mixing Engineer: " << mixingStudio.ptrToMixingStudio->mixingEngineerName << '\n';
+    std::cout << "Mixes Completed: " << mixingStudio.ptrToMixingStudio->numOfMixesCompleted << '\n';
+    std::cout << "CPU Usage Percentage: " << mixingStudio.ptrToMixingStudio->sessionCpuUsagePercentage << '\n';
+    std::cout << "Computer RAM: " << mixingStudio.ptrToMixingStudio->computer.amountRamInGb << '\n';
+    std::cout << "Monitor Volume: " << mixingStudio.ptrToMixingStudio->studioMonitors.volumeLevel << '\n';
     
+    mixingStudio.ptrToMixingStudio->printMixingStudioInfo();
+   
     std::cout << "good to go!" << std::endl;
 }
