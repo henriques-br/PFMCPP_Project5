@@ -251,6 +251,7 @@ struct FitnessTracker
     void printFitnessTrackerInfo();
     
     WorkoutSession currentWorkoutSession;
+    JUCE_LEAK_DETECTOR(FitnessTracker)
 };
 
 FitnessTracker::WorkoutSession::WorkoutSession():
