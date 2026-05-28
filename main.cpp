@@ -111,7 +111,7 @@ struct CoffeeShop
         bool cleanMachine() const;
     };
     
-    void brewCoffee(CoffeeMachine& activeCoffeeMachine, int numOfCups);
+    void brewCoffee(CoffeeMachine& activeCoffeeMachine, int numOfCups) const;
     void serveCustomers(int numOfCustomers) const;
     void cleanTables(int numOfTables) const;
     void restockCoffeeBeans(float amountToAdd, float maxStorageAmount);
@@ -178,7 +178,7 @@ CoffeeShop::~CoffeeShop()
     std::cout << "CoffeeShop being destructed!\n";
 }
 
-void CoffeeShop::brewCoffee(CoffeeMachine& activeCoffeeMachine, int numOfCups)
+void CoffeeShop::brewCoffee(CoffeeMachine& activeCoffeeMachine, int numOfCups) const
 {
     activeCoffeeMachine.makeEspresso(numOfCups);
 
@@ -252,7 +252,7 @@ struct FitnessTracker
         
         void startWorkout() const;
         void pauseWorkout() const;
-        bool endWorkout();
+        bool endWorkout() const;
     };
     
     void trackWorkout(const WorkoutSession& curWorkoutSession) const;
@@ -299,7 +299,7 @@ void FitnessTracker::WorkoutSession::pauseWorkout() const
     std::cout << "Pausing " << workoutType << " workout\n";
 }
 
-bool FitnessTracker::WorkoutSession::endWorkout()
+bool FitnessTracker::WorkoutSession::endWorkout() const
 {
     std::cout << "Ending " << workoutType << " workout\n";
 
@@ -389,7 +389,7 @@ struct Computer
     void runAudioSoftware(std::string softwareName) const;
     void saveProjectFile(std::string projectName) const;
     int processAudioPlugins(int numOfPlugins) const;
-    void allocateRamToPlugins(int ramIncreaseAmount);
+    void allocateRamToPlugins(int ramIncreaseAmount) const;
     void printComputerInfo() const;
     
     JUCE_LEAK_DETECTOR(Computer)
@@ -437,7 +437,7 @@ int Computer::processAudioPlugins(int numOfPlugins) const
     return numOfPlugins;
 }
 
-void Computer::allocateRamToPlugins(int ramIncreaseAmount)
+void Computer::allocateRamToPlugins(int ramIncreaseAmount) const
 {
     for(int i = 0; i <= ramIncreaseAmount; i++)
     {
