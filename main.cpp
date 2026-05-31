@@ -80,6 +80,7 @@ void Axe::aConstMemberFunction() const { }
 
 
 #include <iostream>
+#include "LeakedObjectDetector.h"
 /*
  copied UDT 1:
  */
@@ -106,17 +107,29 @@ struct CoffeeShop
         ~CoffeeMachine();
 
         void makeEspresso(int numOfShots);
-        void steamMilk(float milkAmountInMl);
-        bool cleanMachine();
+        void steamMilk(float milkAmountInMl) const;
+        bool cleanMachine() const;
     };
     
-    void brewCoffee(CoffeeMachine activeCoffeeMachine, int numOfCups);
-    void serveCustomers(int numOfCustomers);
-    void cleanTables(int numOfTables);
+    void brewCoffee(CoffeeMachine& activeCoffeeMachine, int numOfCups) const;
+    void serveCustomers(int numOfCustomers) const;
+    void cleanTables(int numOfTables) const;
     void restockCoffeeBeans(float amountToAdd, float maxStorageAmount);
-    void printCoffeeShopInfo();
+    void printCoffeeShopInfo() const;
     
     CoffeeMachine currentCoffeeMachine;
+    JUCE_LEAK_DETECTOR(CoffeeShop)
+};
+
+struct CoffeeShopWrapper
+{
+    CoffeeShopWrapper( CoffeeShop* ptr ) : ptrToCoffeeShop( ptr ) { }
+    ~CoffeeShopWrapper()
+    {
+        delete ptrToCoffeeShop;         // safe to delete a nullptr
+    }
+
+    CoffeeShop* ptrToCoffeeShop = nullptr;
 };
 
 CoffeeShop::CoffeeMachine::CoffeeMachine() :
@@ -143,12 +156,12 @@ void CoffeeShop::CoffeeMachine::makeEspresso(int numOfShots)
     std::cout << "Making " << numOfShots << " " << (numOfShots == 1 ? "cup" : "cups") << " espresso shots\n";
 }
 
-void CoffeeShop::CoffeeMachine::steamMilk(float milkAmountInMl)
+void CoffeeShop::CoffeeMachine::steamMilk(float milkAmountInMl) const
 {
     std::cout << "Steaming " << milkAmountInMl << " ml of milk\n";
 }
 
-bool CoffeeShop::CoffeeMachine::cleanMachine()
+bool CoffeeShop::CoffeeMachine::cleanMachine() const
 {
     std::cout << "Cleaning coffee machine\n";
 
@@ -165,7 +178,7 @@ CoffeeShop::~CoffeeShop()
     std::cout << "CoffeeShop being destructed!\n";
 }
 
-void CoffeeShop::brewCoffee(CoffeeMachine activeCoffeeMachine, int numOfCups)
+void CoffeeShop::brewCoffee(CoffeeMachine& activeCoffeeMachine, int numOfCups) const
 {
     activeCoffeeMachine.makeEspresso(numOfCups);
 
@@ -175,12 +188,12 @@ void CoffeeShop::brewCoffee(CoffeeMachine activeCoffeeMachine, int numOfCups)
     std::cout << "Coffee Machines: " << numOfCoffeeMachines << "\n\n";
 }
 
-void CoffeeShop::serveCustomers(int numOfCustomers)
+void CoffeeShop::serveCustomers(int numOfCustomers) const
 {
     std::cout << "Serving " << numOfCustomers << " customers\n";
 }
 
-void CoffeeShop::cleanTables(int numOfTables)
+void CoffeeShop::cleanTables(int numOfTables) const
 {
     std::cout << "Cleaning " << numOfTables << " tables\n";
 }
@@ -205,7 +218,7 @@ void CoffeeShop::restockCoffeeBeans(float amountToAdd, float maxStorageAmount)
     }
 }
 
-void CoffeeShop::printCoffeeShopInfo()
+void CoffeeShop::printCoffeeShopInfo() const
 {
     std::cout << "Shop Name: " << this->shopName << '\n';
     std::cout << "Employees: " << this->numOfEmployees << '\n';
@@ -237,18 +250,30 @@ struct FitnessTracker
         WorkoutSession();
         ~WorkoutSession();
         
-        void startWorkout();
-        void pauseWorkout();
-        bool endWorkout();
+        void startWorkout() const;
+        void pauseWorkout() const;
+        bool endWorkout() const;
     };
     
-    void trackWorkout(WorkoutSession curWorkoutSession);
-    void displayNotification(std::string notificationMessage);
+    void trackWorkout(const WorkoutSession& curWorkoutSession) const;
+    void displayNotification(std::string notificationMessage) const;
     double monitorSleep(int hoursSlept);
     void simulateStepGoal(int targetSteps, int stepsAddedPerLoop);
-    void printFitnessTrackerInfo();
+    void printFitnessTrackerInfo() const;
     
     WorkoutSession currentWorkoutSession;
+    JUCE_LEAK_DETECTOR(FitnessTracker)
+};
+
+struct FitnessTrackerWrapper
+{
+    FitnessTrackerWrapper( FitnessTracker* ptr ) : ptrToFitnessTracker( ptr ) { }
+    ~FitnessTrackerWrapper()
+    {
+        delete ptrToFitnessTracker;         // safe to delete a nullptr
+    }
+
+    FitnessTracker* ptrToFitnessTracker = nullptr;
 };
 
 FitnessTracker::WorkoutSession::WorkoutSession():
@@ -264,17 +289,17 @@ FitnessTracker::WorkoutSession::~WorkoutSession()
     std::cout << "WorkoutSession being destructed!" << std::endl;
 }
 
-void FitnessTracker::WorkoutSession::startWorkout()
+void FitnessTracker::WorkoutSession::startWorkout() const
 {
     std::cout << "Starting " << workoutType << " workout\n";
 }
 
-void FitnessTracker::WorkoutSession::pauseWorkout()
+void FitnessTracker::WorkoutSession::pauseWorkout() const
 {
     std::cout << "Pausing " << workoutType << " workout\n";
 }
 
-bool FitnessTracker::WorkoutSession::endWorkout()
+bool FitnessTracker::WorkoutSession::endWorkout() const
 {
     std::cout << "Ending " << workoutType << " workout\n";
 
@@ -316,14 +341,14 @@ void FitnessTracker::simulateStepGoal(int targetSteps, int stepsAddedPerLoop)
     std::cout << "Daily step goal reached!\n";
 }
 
-void FitnessTracker::trackWorkout(WorkoutSession curWorkoutSession)
+void FitnessTracker::trackWorkout(const WorkoutSession& curWorkoutSession) const
 {
     std::cout << "Tracking workout type: " << curWorkoutSession.workoutType << "\n";
 
     std::cout << "Workout duration: " << curWorkoutSession.workoutDurationInMinutes << " minutes\n";
 }
 
-void FitnessTracker::displayNotification(std::string notificationMessage)
+void FitnessTracker::displayNotification(std::string notificationMessage) const
 {
     std::cout << "Notification: " << notificationMessage << "\n";
     std::cout << "Number of steps recorded: " << numOfStepsRecorded << "\n";
@@ -340,7 +365,7 @@ double FitnessTracker::monitorSleep(int hoursSlept)
     return sleepQualityScore;
 }
 
-void FitnessTracker::printFitnessTrackerInfo()
+void FitnessTracker::printFitnessTrackerInfo() const
 {
     std::cout << "Battery Level: " << this->batteryPercentage << '\n';
     std::cout << "Steps Recorded: " << this->numOfStepsRecorded << '\n';
@@ -361,11 +386,24 @@ struct Computer
     Computer();
     ~Computer();
        
-    void runAudioSoftware(std::string softwareName);
-    void saveProjectFile(std::string projectName);
-    int processAudioPlugins(int numOfPlugins);
-    void allocateRamToPlugins(int ramIncreaseAmount);
-    void printComputerInfo();
+    void runAudioSoftware(std::string softwareName) const;
+    void saveProjectFile(std::string projectName) const;
+    int processAudioPlugins(int numOfPlugins) const;
+    void allocateRamToPlugins(int ramIncreaseAmount) const;
+    void printComputerInfo() const;
+    
+    JUCE_LEAK_DETECTOR(Computer)
+};
+
+struct ComputerWrapper
+{
+    ComputerWrapper( Computer* ptr ) : ptrToComputer( ptr ) { }
+    ~ComputerWrapper()
+    {
+        delete ptrToComputer;         // safe to delete a nullptr
+    }
+
+    Computer* ptrToComputer = nullptr;
 };
 
 Computer::Computer():
@@ -381,25 +419,25 @@ Computer::~Computer()
     std::cout << "Computer being destructed!" << std::endl;
 }
 
-void Computer::runAudioSoftware(std::string softwareName)
+void Computer::runAudioSoftware(std::string softwareName) const
 {
     std::cout << "Running audio software " << softwareName << "\n";
     std::cout << "Operating System Name " << operatingSystemName << "\n";
 }
 
-void Computer::saveProjectFile(std::string projectName)
+void Computer::saveProjectFile(std::string projectName) const
 {
     std::cout << "Saving project file " << projectName << "\n";
 }
 
-int Computer::processAudioPlugins(int numOfPlugins)
+int Computer::processAudioPlugins(int numOfPlugins) const
 {
     std::cout << "Processing " << numOfPlugins << " audio plugins\n";
 
     return numOfPlugins;
 }
 
-void Computer::allocateRamToPlugins(int ramIncreaseAmount)
+void Computer::allocateRamToPlugins(int ramIncreaseAmount) const
 {
     for(int i = 0; i <= ramIncreaseAmount; i++)
     {
@@ -414,7 +452,7 @@ void Computer::allocateRamToPlugins(int ramIncreaseAmount)
     std::cout << "Maximum RAM capacity reached.\n";
 }
 
-void Computer::printComputerInfo()
+void Computer::printComputerInfo() const
 {
     std::cout << "CPU Speed: " << this->cpuSpeedInGhz << '\n';
     std::cout << "RAM Amount: " << this->amountRamInGb << '\n';
@@ -432,10 +470,23 @@ struct AudioInterface
     AudioInterface();
     ~AudioInterface();
        
-    void convertAnalogToDigitalAudio();
+    void convertAnalogToDigitalAudio() const;
     void sendAudioToStudioMonitors(float outputVolume);
-    bool connectMicrophone(std::string microphoneName);
+    bool connectMicrophone(std::string microphoneName) const;
     void increaseHeadphoneVolume(float volumeIncreaseAmount, float maximumSafeVolume);
+    
+    JUCE_LEAK_DETECTOR(AudioInterface)
+};
+
+struct AudioInterfaceWrapper
+{
+    AudioInterfaceWrapper( AudioInterface* ptr ) : ptrToAudioInterface( ptr ) { }
+    ~AudioInterfaceWrapper()
+    {
+        delete ptrToAudioInterface;         // safe to delete a nullptr
+    }
+
+    AudioInterface* ptrToAudioInterface = nullptr;
 };
 
 AudioInterface::AudioInterface():
@@ -451,7 +502,7 @@ AudioInterface::~AudioInterface()
     std::cout << "AudioInterface being destructed!" << std::endl;
 }
 
-void AudioInterface::convertAnalogToDigitalAudio()
+void AudioInterface::convertAnalogToDigitalAudio() const
 {
     std::cout << "Converting analog audio to digital audio\n";
 }
@@ -463,7 +514,7 @@ void AudioInterface::sendAudioToStudioMonitors(float outputVolume)
     std::cout << "Sending audio to studio monitors at volume " << outputVolume << "\n";
 }
 
-bool AudioInterface::connectMicrophone(std::string microphoneName)
+bool AudioInterface::connectMicrophone(std::string microphoneName) const
 {
     std::cout << "Connecting microphone " << microphoneName << "\n";
     std::cout << "Number of Input Channels " << numOfInputChannels << "\n";
@@ -510,10 +561,23 @@ struct StudioMonitors
     StudioMonitors();
     ~StudioMonitors();
     
-    void playAudioPlayback(std::string audioFileName);
-    void reproduceLowFrequencies();
-    void monitorRecordingSession(int sessionDurationInMinutes);
+    void playAudioPlayback(std::string audioFileName) const;
+    void reproduceLowFrequencies() const;
+    void monitorRecordingSession(int sessionDurationInMinutes) const;
     void increaseVolume(float volumeIncreaseAmount, float maximumSafeVolume);
+    
+    JUCE_LEAK_DETECTOR(StudioMonitors)
+};
+
+struct StudioMonitorsWrapper
+{
+    StudioMonitorsWrapper( StudioMonitors* ptr ) : ptrToStudioMonitors( ptr ) { }
+    ~StudioMonitorsWrapper()
+    {
+        delete ptrToStudioMonitors;         // safe to delete a nullptr
+    }
+
+    StudioMonitors* ptrToStudioMonitors = nullptr;
 };
 
 StudioMonitors::StudioMonitors():
@@ -529,17 +593,17 @@ StudioMonitors::~StudioMonitors()
     std::cout << "StudioMonitors being destructed!" << std::endl;
 }
 
-void StudioMonitors::playAudioPlayback(std::string audioFileName)
+void StudioMonitors::playAudioPlayback(std::string audioFileName) const
 {
     std::cout << "Playing audio file " << audioFileName << "\n";
 }
 
-void StudioMonitors::reproduceLowFrequencies()
+void StudioMonitors::reproduceLowFrequencies() const
 {
     std::cout << "Reproducing low frequencies\n";
 }
 
-void StudioMonitors::monitorRecordingSession(int sessionDurationInMinutes)
+void StudioMonitors::monitorRecordingSession(int sessionDurationInMinutes) const
 {
     std::cout << "Monitoring recording session for " << sessionDurationInMinutes << " minutes\n";
     std::cout << "Power Outputs In Watts " << powerOutputsInWatts << "\n";
@@ -573,10 +637,23 @@ struct MidiKeyboard
     MidiKeyboard();
     ~MidiKeyboard();
     
-    void sendMidiNotes(int midiNoteNumber);
-    void controlVirtualInstrument(std::string instrumentName);
-    void adjustPluginParameter(std::string parameterName, float parameterValue);
-    void playNotes(int numOfNotes);
+    void sendMidiNotes(int midiNoteNumber) const;
+    void controlVirtualInstrument(std::string instrumentName) const;
+    void adjustPluginParameter(std::string parameterName, float parameterValue) const;
+    void playNotes(int numOfNotes) const;
+    
+    JUCE_LEAK_DETECTOR(MidiKeyboard)
+};
+
+struct MidiKeyboardWrapper
+{
+    MidiKeyboardWrapper( MidiKeyboard* ptr ) : ptrToMidiKeyboard( ptr ) { }
+    ~MidiKeyboardWrapper()
+    {
+        delete ptrToMidiKeyboard;         // safe to delete a nullptr
+    }
+
+    MidiKeyboard* ptrToMidiKeyboard = nullptr;
 };
 
 MidiKeyboard::MidiKeyboard():
@@ -591,24 +668,24 @@ MidiKeyboard::~MidiKeyboard()
     std::cout << "MidiKeyboard being destructed!" << std::endl;
 }
 
-void MidiKeyboard::sendMidiNotes(int midiNoteNumber)
+void MidiKeyboard::sendMidiNotes(int midiNoteNumber) const
 {
     std::cout << "Sending MIDI note " << midiNoteNumber << "\n";
 }
 
-void MidiKeyboard::controlVirtualInstrument(std::string instrumentName)
+void MidiKeyboard::controlVirtualInstrument(std::string instrumentName) const
 {
     std::cout << "Controlling virtual instrument " << instrumentName << "\n";
     std::cout << "USB Connection Type " << usbConnectionType << "\n";
     std::cout << "Velocity Sensitivity Enabled " << (isVelocitySensitivityEnabled == 1 ? "TRUE" : "FALSE") << "\n";
 }
 
-void MidiKeyboard::adjustPluginParameter(std::string parameterName, float parameterValue)
+void MidiKeyboard::adjustPluginParameter(std::string parameterName, float parameterValue) const
 {
     std::cout << "Adjusting parameter " << parameterName << " to " << parameterValue << "\n";
 }
 
-void MidiKeyboard::playNotes(int numOfNotes)
+void MidiKeyboard::playNotes(int numOfNotes) const
 {
     std::cout << "\nPlaying MIDI notes...\n";
 
@@ -635,10 +712,23 @@ struct Microphone
     Microphone();
     ~Microphone();
     
-    void captureVocalRecording(std::string vocalistName);
-    void recordAcousticInstrument(std::string instrumentName);
-    bool reduceBackgroundNoise();
+    void captureVocalRecording(std::string vocalistName) const;
+    void recordAcousticInstrument(std::string instrumentName) const;
+    bool reduceBackgroundNoise() const;
     void increaseSensitivity(double maxSensitivity);
+    
+    JUCE_LEAK_DETECTOR(Microphone)
+};
+
+struct MicrophoneWrapper
+{
+    MicrophoneWrapper( Microphone* ptr ) : ptrToMicrophone( ptr ) { }
+    ~MicrophoneWrapper()
+    {
+        delete ptrToMicrophone;         // safe to delete a nullptr
+    }
+
+    Microphone* ptrToMicrophone = nullptr;
 };
 
 Microphone::Microphone():
@@ -654,19 +744,19 @@ Microphone::~Microphone()
     std::cout << "Microphone being destructed!" << std::endl;
 }
 
-void Microphone::captureVocalRecording(std::string vocalistName)
+void Microphone::captureVocalRecording(std::string vocalistName) const
 {
     std::cout << "Capturing vocals for " << vocalistName << "\n";
     std::cout << "Micropphone Type" << microphoneType << "\n";
     std::cout << "Cable Lenght In Meters " << cableLenghtInMeters << "\n";
 }
 
-void Microphone::recordAcousticInstrument(std::string instrumentName)
+void Microphone::recordAcousticInstrument(std::string instrumentName) const
 {
     std::cout << "Recording acoustic instrument " << instrumentName << "\n";
 }
 
-bool Microphone::reduceBackgroundNoise()
+bool Microphone::reduceBackgroundNoise() const
 {
     std::cout << "Reducing background noise\n";
 
@@ -699,10 +789,23 @@ struct MusicStudioComputerSetup
     MusicStudioComputerSetup();
     ~MusicStudioComputerSetup();
     
-    void recordMusic(std::string projectName);
-    void editAudioTrack(std::string trackName);
-    void playVirtualInstrument(std::string instrumentName);
+    void recordMusic(std::string projectName) const;
+    void editAudioTrack(std::string trackName) const;
+    void playVirtualInstrument(std::string instrumentName) const;
     void runRecordingSessions(int numOfSessions);
+    
+    JUCE_LEAK_DETECTOR(MusicStudioComputerSetup)
+};
+
+struct MusicStudioComputerSetupWrapper
+{
+    MusicStudioComputerSetupWrapper( MusicStudioComputerSetup* ptr ) : ptrToMusicStudioComputerSetup( ptr ) { }
+    ~MusicStudioComputerSetupWrapper()
+    {
+        delete ptrToMusicStudioComputerSetup;         // safe to delete a nullptr
+    }
+
+    MusicStudioComputerSetup* ptrToMusicStudioComputerSetup = nullptr;
 };
 
 MusicStudioComputerSetup::MusicStudioComputerSetup()
@@ -715,7 +818,7 @@ MusicStudioComputerSetup::~MusicStudioComputerSetup()
     std::cout << "MusicStudioComputerSetup being destructed!" << std::endl;
 }
 
-void MusicStudioComputerSetup::recordMusic(std::string projectName)
+void MusicStudioComputerSetup::recordMusic(std::string projectName) const
 {
     computer.runAudioSoftware(projectName);
 
@@ -726,7 +829,7 @@ void MusicStudioComputerSetup::recordMusic(std::string projectName)
     std::cout << "Recording music project: " << projectName << "\n";
 }
 
-void MusicStudioComputerSetup::editAudioTrack(std::string trackName)
+void MusicStudioComputerSetup::editAudioTrack(std::string trackName) const
 {
     computer.saveProjectFile(trackName);
 
@@ -735,7 +838,7 @@ void MusicStudioComputerSetup::editAudioTrack(std::string trackName)
     std::cout << "Editing audio track: " << trackName << "\n";
 }
 
-void MusicStudioComputerSetup::playVirtualInstrument(std::string instrumentName)
+void MusicStudioComputerSetup::playVirtualInstrument(std::string instrumentName) const
 {
     midiKeyboard.controlVirtualInstrument(instrumentName);
 
@@ -779,9 +882,22 @@ struct RecordingSession
     RecordingSession();
     ~RecordingSession();
 
-    void startSession(std::string vocalistName);
+    void startSession(std::string vocalistName) const;
     void recordTracks(int numOfTracks);
-    void printRecordingSessionInfo();
+    void printRecordingSessionInfo() const;
+    
+    JUCE_LEAK_DETECTOR(RecordingSession)
+};
+
+struct RecordingSessionWrapper
+{
+    RecordingSessionWrapper( RecordingSession* ptr ) : ptrToRecordingSession( ptr ) { }
+    ~RecordingSessionWrapper()
+    {
+        delete ptrToRecordingSession;         // safe to delete a nullptr
+    }
+
+    RecordingSession* ptrToRecordingSession = nullptr;
 };
 
 RecordingSession::RecordingSession():
@@ -801,7 +917,7 @@ RecordingSession::~RecordingSession()
     std::cout << "Final track count: " << numOfTracksRecorded << '\n';
 }
 
-void RecordingSession::startSession(std::string vocalistName)
+void RecordingSession::startSession(std::string vocalistName) const
 {
     computer.runAudioSoftware("Logic Pro");
 
@@ -828,7 +944,7 @@ void RecordingSession::recordTracks(int numOfTracks)
     }
 }
 
-void RecordingSession::printRecordingSessionInfo()
+void RecordingSession::printRecordingSessionInfo() const
 {
     std::cout << "Session Name: " << this->sessionName << '\n';
     std::cout << "Session Duration: " << this->sessionDurationInMinutes << '\n';
@@ -854,9 +970,22 @@ struct MixingStudio
     MixingStudio();
     ~MixingStudio();
 
-    void mixSong(std::string songName);
+    void mixSong(std::string songName) const;
     void processMixSessions(int numOfSessions);
-    void printMixingStudioInfo();
+    void printMixingStudioInfo() const;
+    
+    JUCE_LEAK_DETECTOR(MixingStudio)
+};
+
+struct MixingStudioWrapper
+{
+    MixingStudioWrapper( MixingStudio* ptr ) : ptrToMixingStudio( ptr ) { }
+    ~MixingStudioWrapper()
+    {
+        delete ptrToMixingStudio;         // safe to delete a nullptr
+    }
+
+    MixingStudio* ptrToMixingStudio = nullptr;
 };
 
 MixingStudio::MixingStudio()
@@ -873,7 +1002,7 @@ MixingStudio::~MixingStudio()
     studioMonitors.playAudioPlayback("Final Mix Bounce.wav");
 }
 
-void MixingStudio::mixSong(std::string songName)
+void MixingStudio::mixSong(std::string songName) const
 {
     computer.processAudioPlugins(25);
 
@@ -905,7 +1034,7 @@ void MixingStudio::processMixSessions(int numOfSessions)
     }
 }
 
-void MixingStudio::printMixingStudioInfo()
+void MixingStudio::printMixingStudioInfo() const
 {
     std::cout << "Mixing Engineer: " << this->mixingEngineerName << '\n';
     std::cout << "Mixes Completed: " << this->numOfMixesCompleted << '\n';
@@ -931,7 +1060,9 @@ void MixingStudio::printMixingStudioInfo()
 int main()
 {
     std::cout << "=========== 1st UDT ===========" << std::endl;
-    CoffeeShop coffeeShop;
+    //CoffeeShop coffeeShop;
+    CoffeeShopWrapper coffeeShop( new CoffeeShop() );
+    
     /*
     coffeeShop.serveCustomers(12);
     coffeeShop.cleanTables(5);
@@ -942,14 +1073,16 @@ int main()
     coffeeShop.restockCoffeeBeans(8.f, 55.f);
     */
     
-    std::cout << "Shop Name: " << coffeeShop.shopName << '\n';
-    std::cout << "Employees: " << coffeeShop.numOfEmployees << '\n';
-    std::cout << "Coffee Machines: " << coffeeShop.numOfCoffeeMachines << "\n";
+    std::cout << "Shop Name: " << coffeeShop.ptrToCoffeeShop->shopName << '\n';
+    std::cout << "Employees: " << coffeeShop.ptrToCoffeeShop->numOfEmployees << '\n';
+    std::cout << "Coffee Machines: " << coffeeShop.ptrToCoffeeShop->numOfCoffeeMachines << "\n";
     
-    coffeeShop.printCoffeeShopInfo();
+    coffeeShop.ptrToCoffeeShop->printCoffeeShopInfo();
     
     std::cout << "=========== 2nd UDT with nested ===========" << std::endl;
-    FitnessTracker fitnessTracker;
+    //FitnessTracker fitnessTracker;
+    FitnessTrackerWrapper fitnessTracker( new FitnessTracker() );
+
     /*
     fitnessTracker.currentWorkoutSession.startWorkout();
     fitnessTracker.trackWorkout(fitnessTracker.currentWorkoutSession);
@@ -959,52 +1092,59 @@ int main()
     fitnessTracker.currentWorkoutSession.endWorkout();
     fitnessTracker.simulateStepGoal(3000, 500);
     */
-    std::cout << "Battery Level: " << fitnessTracker.batteryPercentage << '\n';
-    std::cout << "Steps Recorded: " << fitnessTracker.numOfStepsRecorded << '\n';
-    std::cout << "Heart Rate: " << fitnessTracker.heartRateValue << '\n';
+    std::cout << "Battery Level: " << fitnessTracker.ptrToFitnessTracker->batteryPercentage << '\n';
+    std::cout << "Steps Recorded: " << fitnessTracker.ptrToFitnessTracker->numOfStepsRecorded << '\n';
+    std::cout << "Heart Rate: " << fitnessTracker.ptrToFitnessTracker->heartRateValue << '\n';
 
-    fitnessTracker.printFitnessTrackerInfo();
+    fitnessTracker.ptrToFitnessTracker->printFitnessTrackerInfo();
 
     std::cout << "=========== 3rd UDT with nested ===========" << std::endl;
-    MusicStudioComputerSetup setup;
+    //MusicStudioComputerSetup setup;
+    MusicStudioComputerSetupWrapper setup( new MusicStudioComputerSetup() );
     /*
     setup.recordMusic("New Album");
     setup.editAudioTrack("Lead Vocals");
     setup.playVirtualInstrument("Synth Pad");
     setup.runRecordingSessions(4);
     */
-    std::cout << "CPU Speed: " << setup.computer.cpuSpeedInGhz << '\n';
-    std::cout << "RAM Amount: " << setup.computer.amountRamInGb << '\n';
-    std::cout << "Operating System: " << setup.computer.operatingSystemName << '\n';
 
-    setup.computer.printComputerInfo();
-    
+    std::cout << "CPU Speed: " << setup.ptrToMusicStudioComputerSetup->computer.cpuSpeedInGhz << '\n';
+    std::cout << "RAM Amount: " << setup.ptrToMusicStudioComputerSetup->computer.amountRamInGb << '\n';
+    std::cout << "Operating System: " << setup.ptrToMusicStudioComputerSetup->computer.operatingSystemName << '\n';
+
+    setup.ptrToMusicStudioComputerSetup->computer.printComputerInfo();
+  
     std::cout << "=========== 4th UDT with nested ===========" << std::endl;
-    RecordingSession recordingSession;
+    //RecordingSession recordingSession;
+    RecordingSessionWrapper recordingSession( new RecordingSession() );
+  
     /*
     recordingSession.startSession("Another Day");
     recordingSession.recordTracks(6);
     */
-    std::cout << "Session Name: " << recordingSession.sessionName << '\n';
-    std::cout << "Session Duration: " << recordingSession.sessionDurationInMinutes << '\n';
-    std::cout << "Tracks Recorded: " << recordingSession.numOfTracksRecorded << '\n';
-    std::cout << "Computer Operating System: " << recordingSession.computer.operatingSystemName << '\n';
-    std::cout << "Microphone Type: " << recordingSession.microphone.microphoneType << '\n';
+    std::cout << "Session Name: " << recordingSession.ptrToRecordingSession->sessionName << '\n';
+    std::cout << "Session Duration: " << recordingSession.ptrToRecordingSession->sessionDurationInMinutes << '\n';
+    std::cout << "Tracks Recorded: " << recordingSession.ptrToRecordingSession->numOfTracksRecorded << '\n';
+    std::cout << "Computer Operating System: " << recordingSession.ptrToRecordingSession->computer.operatingSystemName << '\n';
+    std::cout << "Microphone Type: " << recordingSession.ptrToRecordingSession->microphone.microphoneType << '\n';
 
-    recordingSession.printRecordingSessionInfo();
-    
+    recordingSession.ptrToRecordingSession->printRecordingSessionInfo();
+  
     std::cout << "=========== 5th UDT with nested ===========" << std::endl;
-    MixingStudio mixingStudio;
+    //MixingStudio mixingStudio;
+    MixingStudioWrapper mixingStudio( new MixingStudio() );
+
     /*
     mixingStudio.mixSong("Thunder");
     mixingStudio.processMixSessions(4);
     */
-    std::cout << "Mixing Engineer: " << mixingStudio.mixingEngineerName << '\n';
-    std::cout << "Mixes Completed: " << mixingStudio.numOfMixesCompleted << '\n';
-    std::cout << "CPU Usage Percentage: " << mixingStudio.sessionCpuUsagePercentage << '\n';
-    std::cout << "Computer RAM: " << mixingStudio.computer.amountRamInGb << '\n';
-    std::cout << "Monitor Volume: " << mixingStudio.studioMonitors.volumeLevel << '\n';
-    mixingStudio.printMixingStudioInfo();
+    std::cout << "Mixing Engineer: " << mixingStudio.ptrToMixingStudio->mixingEngineerName << '\n';
+    std::cout << "Mixes Completed: " << mixingStudio.ptrToMixingStudio->numOfMixesCompleted << '\n';
+    std::cout << "CPU Usage Percentage: " << mixingStudio.ptrToMixingStudio->sessionCpuUsagePercentage << '\n';
+    std::cout << "Computer RAM: " << mixingStudio.ptrToMixingStudio->computer.amountRamInGb << '\n';
+    std::cout << "Monitor Volume: " << mixingStudio.ptrToMixingStudio->studioMonitors.volumeLevel << '\n';
     
+    mixingStudio.ptrToMixingStudio->printMixingStudioInfo();
+   
     std::cout << "good to go!" << std::endl;
 }
